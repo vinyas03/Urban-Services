@@ -1,0 +1,153 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+header {
+    height: 80px;
+    width: 100%;
+    max-width: 1280px;
+    padding: 12px 18px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    @include mediumDevice {
+        justify-content: center;
+    }
+
+    .toggleBtn {
+        display: none;
+
+        @include mediumDevice {
+            display: block;
+            //margin-right: 8px;
+            position: absolute;
+            left: 8px;
+            top: 40px;
+            transform: translateY(-50%);
+        }
+
+    }
+
+    .logo-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        @include mediumDevice {
+            margin-left: 12px;
+        }
+        .logo {
+            height: 60px;
+            width: 60px;
+   
+            @include mediumDevice {
+                height: 40px;
+                width: 40px;
+            }
+        }
+        .title {
+            margin-left: 10px;
+            color: $logo-Color;
+            font-size: 1.6rem;
+            font-weight: 600;
+
+            @include mediumDevice {
+                font-size: 1.45rem;
+            }
+        }
+    }
+    .nav-items {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        transition: all 0.5s ease;
+
+        @include mediumDevice {
+            position: absolute;
+            width: 100%;
+            top: 80px;
+            //display: none;
+            flex-direction: column;
+            height: 0;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        li {
+            margin: 10px 10px;
+
+            @include mediumDevice {
+                margin: 10px 10px;
+            }
+        }
+        a {
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: $navLink-Color;
+
+
+            @include mediumDevice {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .nav-buttons {
+        display: flex;
+        align-items: center;
+        transition: all 0.5s ease;
+        
+        @include mediumDevice {
+            position: absolute;
+            width: 100%;
+            top: 220px;
+            display: none; //will be toggled on click
+            flex-direction: column;
+            overflow: hidden;
+
+            z-index: 1000;
+        }
+
+        a {
+            margin-right: 14px;
+            text-decoration: none;
+            font-size: 1.25rem;  
+
+            @include mediumDevice {
+                font-size: 1.2rem;
+                margin: 10px 0;
+            }
+        }
+        .loginBtn {
+            color: $btn-Color;
+            background: $btn-bgColor;
+            border-radius: 5px;
+            padding: 7px;
+        }
+        .signupBtn {
+            color: $btn-Color;
+            background: $btn-bgColor;
+            border-radius: 5px;
+            padding: 7px;
+        }
+
+
+    }
+}
+
+
+.nav-items.active {
+    height: 100%;
+    transition: all 0.5s ease;
+    background: $main-bgColor;
+    backdrop-filter: blur(8px);
+    //display: flex;
+}
+
+.nav-buttons.active {
+    display: flex;
+    transition: all 0.5s ease;
+    //background: $main-bgColor;
+}
+

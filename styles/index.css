@@ -1,0 +1,315 @@
+header {
+  height: 80px;
+  width: 100%;
+  max-width: 1280px;
+  padding: 12px 18px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 992px) {
+  header {
+    justify-content: center;
+  }
+}
+header .toggleBtn {
+  display: none;
+}
+@media screen and (max-width: 992px) {
+  header .toggleBtn {
+    display: block;
+    position: absolute;
+    left: 8px;
+    top: 40px;
+    transform: translateY(-50%);
+  }
+}
+header .logo-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper {
+    margin-left: 12px;
+  }
+}
+header .logo-wrapper .logo {
+  height: 60px;
+  width: 60px;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper .logo {
+    height: 40px;
+    width: 40px;
+  }
+}
+header .logo-wrapper .title {
+  margin-left: 10px;
+  color: #22053e;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper .title {
+    font-size: 1.45rem;
+  }
+}
+header .nav-items {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items {
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    flex-direction: column;
+    height: 0;
+    overflow: hidden;
+    z-index: 1000;
+  }
+}
+header .nav-items li {
+  margin: 10px 10px;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items li {
+    margin: 10px 10px;
+  }
+}
+header .nav-items a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #fbfcf8;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items a {
+    font-size: 1.1rem;
+  }
+}
+header .nav-buttons {
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+@media screen and (max-width: 992px) {
+  header .nav-buttons {
+    position: absolute;
+    width: 100%;
+    top: 220px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+  }
+}
+header .nav-buttons a {
+  margin-right: 14px;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+@media screen and (max-width: 992px) {
+  header .nav-buttons a {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+}
+header .nav-buttons .loginBtn {
+  color: #ffffff;
+  background: #22053e;
+  border-radius: 5px;
+  padding: 7px;
+}
+header .nav-buttons .signupBtn {
+  color: #ffffff;
+  background: #22053e;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.nav-items.active {
+  height: 100%;
+  transition: all 0.5s ease;
+  background: #1997fc;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.nav-buttons.active {
+  display: flex;
+  transition: all 0.5s ease;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #1997fc;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6px 16px;
+}
+@media screen and (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+}
+.hero-container .hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 12px;
+}
+.hero-container .hero-text h2 {
+  color: #22053e;
+}
+.hero-container .hero-text .hero-title {
+  color: #22053e;
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+.hero-container .hero-text .hero-info {
+  color: #fbfcf8;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.hero-container .hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 12px;
+}
+.hero-container .hero-image img {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.8);
+}
+
+.search-container {
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6px 16px;
+  background: rgb(142, 218, 112);
+}
+.search-container > div {
+  margin-bottom: 10px;
+}
+.search-container h2 {
+  text-align: center;
+}
+.search-container .search-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.search-container .search-field input,
+.search-container .search-field select {
+  padding: 4px;
+  margin: 4px 12px;
+  outline: none;
+}
+.search-container .search-field input {
+  min-width: 300px;
+  border: none;
+  outline: none;
+  padding: 7px;
+  border-radius: 2px;
+  font-size: 1.1rem;
+}
+.search-container .search-field select {
+  padding: 7px;
+  border-radius: 2px;
+  font-size: 1.05rem;
+}
+.search-container .checklist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.search-container .checklist .checkbox {
+  margin: 0 5px;
+  font-size: 1.04rem;
+}
+.search-container .search-button button {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px;
+  background: mediumslateblue;
+  outline: none;
+  border: none;
+  font-size: 1.03rem;
+  font-weight: 600;
+}
+.search-container .search-button button .search-icon {
+  width: 36px;
+  height: 36px;
+}
+.search-container .search-results {
+  margin-top: 14px;
+}
+.search-container .search-results .search-result {
+  margin: 4px 0;
+  max-width: 100%;
+  background-color: #effeef;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+@media screen and (max-width: 992px) {
+  .search-container .search-results .search-result {
+    grid-template-columns: 1fr 1.5fr;
+    -moz-column-gap: 8px;
+         column-gap: 8px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .search-container .search-results .search-result {
+    grid-template-columns: 1fr;
+    -moz-column-gap: 0px;
+         column-gap: 0px;
+  }
+}
+.search-container .search-results .search-result .service-image img {
+  width: 100%;
+  min-height: 100%;
+}
+.search-container .search-results .search-result .service-info .booknow {
+  border: none;
+  outline: none;
+  padding: 6px;
+  font-size: 1.03rem;
+  border-radius: 3px;
+  background: #f510e2;
+  color: #fbfcf8;
+}
+.search-container .search-results .search-result .service-info .title {
+  font-size: 1.6rem;
+}
+.search-container .search-results .search-result .service-info .title,
+.search-container .search-results .search-result .description,
+.search-container .search-results .search-result .booknow {
+  margin-bottom: 10px;
+}/*# sourceMappingURL=index.css.map */

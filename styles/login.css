@@ -1,0 +1,234 @@
+header {
+  height: 80px;
+  width: 100%;
+  max-width: 1280px;
+  padding: 12px 18px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 992px) {
+  header {
+    justify-content: center;
+  }
+}
+header .toggleBtn {
+  display: none;
+}
+@media screen and (max-width: 992px) {
+  header .toggleBtn {
+    display: block;
+    position: absolute;
+    left: 8px;
+    top: 40px;
+    transform: translateY(-50%);
+  }
+}
+header .logo-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper {
+    margin-left: 12px;
+  }
+}
+header .logo-wrapper .logo {
+  height: 60px;
+  width: 60px;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper .logo {
+    height: 40px;
+    width: 40px;
+  }
+}
+header .logo-wrapper .title {
+  margin-left: 10px;
+  color: #22053e;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+@media screen and (max-width: 992px) {
+  header .logo-wrapper .title {
+    font-size: 1.45rem;
+  }
+}
+header .nav-items {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items {
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    flex-direction: column;
+    height: 0;
+    overflow: hidden;
+    z-index: 1000;
+  }
+}
+header .nav-items li {
+  margin: 10px 10px;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items li {
+    margin: 10px 10px;
+  }
+}
+header .nav-items a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #fbfcf8;
+}
+@media screen and (max-width: 992px) {
+  header .nav-items a {
+    font-size: 1.1rem;
+  }
+}
+header .nav-buttons {
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+@media screen and (max-width: 992px) {
+  header .nav-buttons {
+    position: absolute;
+    width: 100%;
+    top: 220px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+  }
+}
+header .nav-buttons a {
+  margin-right: 14px;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+@media screen and (max-width: 992px) {
+  header .nav-buttons a {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+}
+header .nav-buttons .loginBtn {
+  color: #ffffff;
+  background: #22053e;
+  border-radius: 5px;
+  padding: 7px;
+}
+header .nav-buttons .signupBtn {
+  color: #ffffff;
+  background: #22053e;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.nav-items.active {
+  height: 100%;
+  transition: all 0.5s ease;
+  background: #1997fc;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.nav-buttons.active {
+  display: flex;
+  transition: all 0.5s ease;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #1997fc;
+}
+
+form {
+  width: 360px;
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(251, 252, 248, 0.2);
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
+  border-radius: 5px;
+}
+
+.header {
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  text-align: left;
+  margin: 10px 0;
+}
+
+.container label {
+  display: block;
+  font-weight: bold;
+}
+
+.container input[type=text],
+.container input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  outline: none;
+  border-radius: 5px;
+}
+
+form button[type=submit] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.1rem;
+  background-color: #03ac13;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+form button[type=submit]:hover {
+  background-color: #028a0f;
+}
+
+.register-link {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.forgot-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.forgot-password a, .register-here a {
+  text-decoration: none;
+}
+
+.captcha-box {
+  transform: scale(0.8);
+  transform-origin: 0 0;
+}
+
+.register-here {
+  align-items: center;
+  margin: 10px 0;
+}/*# sourceMappingURL=login.css.map */
