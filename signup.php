@@ -1,7 +1,7 @@
 <?php
-    ob_start();
-    include_once("db_connect.php"); //database connection
+    
     session_start();
+    include_once("db_connect.php"); //database connection
     
     if(isset($_SESSION['user_id'])) {
         header("Location: index.php");
@@ -47,6 +47,11 @@
             $registrationerror = "Name must contain only alphabets and space";
         }
 
+        if(strlen($phone) !== 10) {
+            $error = true;
+            $registrationerror = "Please enter 10-digit valid phone number";
+        }
+
         if(!filter_var($email,FILTER_VALIDATE_EMAIL)) {
             $error = true;
             $registrationerror = "Please Enter Valid Email ID";
@@ -55,21 +60,109 @@
             $error = true;
             $registrationerror = "Password must be minimum of 6 characters";
         }
-        if($password1 != $password2) {
+
+        if($password1 !== $password2) {
             $error = true;
             $registrationerror = "Password and Confirm Password doesn't match";
         }
 
+        $validGenders = array(
+            "Male",
+            "Female"
+        );
+
+        if(!in_array($gender, $validGenders)) {
+            $error = true;
+            $registrationerror = "Please choose a valid gender";
+        }
+
+        $validLocations = array(
+            "Bangalore",
+            "Delhi",
+            "Mumbai",
+            "Hyderabad",
+            "Kolkata",
+            "Chennai"
+        );
+
+        if(!in_array($location, $validLocations)) {
+            $error = true;
+            $registrationerror = "Please select a valid city";
+        }
+
+        $validSecurityQuestions = array(
+            "Your favourite colour ?",
+            "Your favourite place to visit ?",
+            "Your birth month ?",
+            "Your nickname?"
+        );
+
+        if(!in_array($securityQuestion, $validSecurityQuestions)) {
+            $error = true;
+            $registrationerror = "Please select a valid security question";
+        }
         
+
+        //if no inputs, we insert into the database
         if (!$error) {
             $hashed_password = password_hash($password1, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (Name, Email, Password, Phone, Gender, Location, Security_question, Security_answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $hashed_password, $phone, $gender, $location, $securityQuestion, $securityAnswer);
+
+            //find total accounts in the database
+            $result = $conn->query(
+                "SELECT SUM(total_users) AS total_users, SUM(total_customers) AS total_customers 
+                FROM totalaccounts"
+            );
+            $row = $result->fetch_assoc();
+            $total_users = $row['total_users'];
+            $total_customers = $row['total_customers'];
+
+            //Generate 20 character userID
+            $length = strlen("$total_users");
+            $userID = "user".str_repeat('0', 16 - $length).$total_users + 1;
+
+            //Generate 20 character customerID
+            $length = strlen("$total_customers");
+            $customerID = "customer".str_repeat('0', 16 - $length).$total_customers + 1;
+
+            $role = "Customer"; //role is enum and can be one of "Customer" or "ServiceProvider"
+
+            $insertquery1 = "INSERT INTO accounts (userID, email, password, role, securityQuestion, securityAnswer) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt1 = $conn->prepare($insertquery1);
+            $stmt1->bind_param("ssssss", $userID, $email, $hashed_password, $role, $securityQuestion, $securityAnswer);
+            
+            //fetch the cityID 
+            $result = $conn->query(
+                "SELECT cityID FROM cities
+                WHERE cityName='$location'
+                "
+            );
+            $row = $result->fetch_assoc();
+            $cityID = $row['cityID'];            
+
+            $insertquery2 = "INSERT INTO customers (userID, customerID, customerName, phone, gender, cityID) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt2 = $conn->prepare($insertquery2);
+            $stmt2->bind_param("ssssss",$userID , $customerID, $name, $phone, $gender, $cityID);
+            
             
             try {
-                if(mysqli_stmt_execute($stmt)) {
+                if($stmt1->execute() && $stmt2->execute()) {
+                    
+                    //increase user count
+                    $conn->query(
+                        "UPDATE totalaccounts SET
+                        total_users = total_users + 1,
+                        total_customers = total_customers + 1
+                        "
+                    );
+
+                    //redirect to customer home page or login page
                     echo "<script>alert('Registered successfully ! Now you can Login.')</script>";
+
+                    $_SESSION['userID'] = $userID;
+                    $_SESSION['customerID'] = $customerID;
+
+                    //stm1->close();
+                    //stm2->close();
                 }
             } catch (mysqli_sql_exception $e) {
                 $error = true;
@@ -94,6 +187,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .selectize-dropdown, .selectize-input { 
+        padding: 12px 8px; 
+     }
+     .selectize-input {
+        font-size: 1.05rem; /*  line-height: ; */
+        }
+        .selectize-dropdown {
+            font-size: 1.05rem; /*  line-height: ; */
+         }
+    </style>
     <title>Urban Services - Sign Up</title>
 </head>
 <body>
@@ -108,7 +215,7 @@
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Register a service</a></li>
+            <li><a href="./registerservice.php">Register a service</a></li>
         </ul>
         <div class="nav-buttons">
             <a href="./login.php" class="loginBtn">Login</a>
@@ -121,7 +228,7 @@
             <?php if (isset($registrationerror)) { ?>
                 <p style="color:crimson;"><?php echo $registrationerror; ?></p>
             <?php }?>
-            <h1> Register </h1>   
+            <h1> Register user </h1>   
         </div>
 
         <div class="form-inputs">
@@ -179,7 +286,7 @@
                     <select name="securityQuestion" id="securityQuestion">
                         <option value="Your favourite colour ?">Your favourite colour ?</option>
                         <option value="Your favourite place to visit ?">Your favourite place to visit ?</option>
-                        <option value="Your Birth month ?">Your Birth month ?</option>
+                        <option value="Your birth month ?">Your birth month ?</option>
                         <option value="Your nickname ?">Your nickname?</option>
                     </select>
                 
@@ -196,12 +303,24 @@
         <div class="submit-btn">
            <button type="submit" name="submit" value="submit">Register</button> 
         </div>  
-        <p class="login-link">Already have an account? <a href="./login.php">Login here</a></p>
+        <p class="login-link">Already have a user account? <a href="./login.php">Login here</a></p>
        </div>   
    </form>     
 
 
     <script src="./scripts/script.js"></script>
     <script src="./scripts/registervalidate.js"></script>
+    <script>
+
+//Selectize JS configuration
+$(function () {
+$("#location").selectize({
+    plugins:['remove_button'],
+});
+$("#securityQuestion").selectize({
+    plugins:['remove_button'],
+});
+});
+</script>
 </body>
 </html>
