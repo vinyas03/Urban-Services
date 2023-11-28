@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
         $error = false;
     } else {
         //echo "<script>alert('Bot detected !');</script>";
-        $error = false;
+        $error = true;
         $loginerror = "Error: Captcha not verified";
     }
 
