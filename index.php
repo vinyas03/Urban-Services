@@ -47,12 +47,16 @@ include_once("db_connect.php");
     </header>
 
     <!--Redirect to customer home page-->
-    <?php if(isset($_SESSION['user_id'])!="") {
+    <?php if(isset($_SESSION['customerID'])!="") {
 	        header("Location: customer/index.php");
         }
         ?>
     <!--Redirect to serviceprovider home page-->
 
+    <?php if(isset($_SESSION['serviceProviderID'])!="") {
+	        header("Location: serviceprovider/index.php");
+        }
+        ?>
                 
     
 
