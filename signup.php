@@ -94,7 +94,7 @@
             "Your favourite colour ?",
             "Your favourite place to visit ?",
             "Your birth month ?",
-            "Your nickname?"
+            "Your nickname ?"
         );
 
         if(!in_array($securityQuestion, $validSecurityQuestions)) {
@@ -157,6 +157,9 @@
 
                     //redirect to customer home page or login page
                     echo "<script>alert('Registered successfully !</script>";
+
+                    //destroy older session
+                    session_destroy();
 
                     $_SESSION['userID'] = $userID;
                     $_SESSION['customerID'] = $customerID;
@@ -289,9 +292,9 @@
                         <option value="Your favourite colour ?">Your favourite colour ?</option>
                         <option value="Your favourite place to visit ?">Your favourite place to visit ?</option>
                         <option value="Your birth month ?">Your birth month ?</option>
-                        <option value="Your nickname ?">Your nickname?</option>
+                        <option value="Your nickname ?">Your nickname ?</option>
                     </select>
-                
+
                 </div>
                 <div class="container">   
                     <label> Answer</label>   
