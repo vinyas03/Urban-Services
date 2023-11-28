@@ -1,12 +1,7 @@
 <?php
-    ob_start();
-    include_once("db_connect.php"); //database connection
     session_start();
-    
-    if(isset($_SESSION['user_id'])) {
-        header("Location: index.php");
-    }
-
+    include_once("db_connect.php"); //database connection
+  
     $error = false;
 
     if (isset($_POST['submit'])) {

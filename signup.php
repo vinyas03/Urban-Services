@@ -1,12 +1,7 @@
-<?php
-    
+<?php  
     session_start();
     include_once("db_connect.php"); //database connection
     
-    if(isset($_SESSION['user_id'])) {
-        header("Location: index.php");
-    }
-
     $error = false;
 
     if (isset($_POST['submit'])) {
@@ -19,8 +14,6 @@
         $location = mysqli_real_escape_string($conn,$_POST['location']);
         $securityQuestion = mysqli_real_escape_string($conn,$_POST['securityQuestion']);
         $securityAnswer = mysqli_real_escape_string($conn,$_POST['securityAnswer']);	
-
-
 
 
         //Google recaptcha v2
