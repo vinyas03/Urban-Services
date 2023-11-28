@@ -131,7 +131,7 @@
 
             //Generate 20 character serviceProviderID
             $length = strlen("$total_serviceProviders");
-            $serviceProviderID = "sprov".str_repeat('0', 16 - $length).($total_serviceProviders + 1);
+            $serviceProviderID = "sprv".str_repeat('0', 16 - $length).($total_serviceProviders + 1);
 
             $role = "ServiceProvider"; //role is enum and can be one of "Customer" or "ServiceProvider"
 
