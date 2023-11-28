@@ -1,10 +1,12 @@
 <?php 
 session_start();
-ob_start();
 include_once("db_connect.php");
 
-if(isset($_SESSION['user_id'])!="") {
-	header("Location: index.php");
+if(isset($_SESSION['userID']) && isset($_SESSION['customerID']))  {
+    header("Location: customer/index.php");
+}
+if(isset($_SESSION['userID']) && isset($_SESSION['serviceProviderID']))  {
+    header("Location: serviceprovider/index.php");
 }
 
 $error = false;
@@ -27,7 +29,7 @@ if (isset($_POST['submit'])) {
         $error = false;
     } else {
         //echo "<script>alert('Bot detected !');</script>";
-        $error = true;
+        $error = false;
         $loginerror = "Error: Captcha not verified";
     }
 
@@ -46,7 +48,7 @@ if (isset($_POST['submit'])) {
     //$user = $result->fetch_assoc();
 
     if (!$error) {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE Email = ?"); //as Email is set to UNIQUE
+        $stmt = $conn->prepare("SELECT * FROM accounts WHERE email = ?"); //as Email is set to UNIQUE
         // Bind the email as a parameter
         $stmt->bind_param("s",$email);
         // Execute the statement
@@ -56,17 +58,43 @@ if (isset($_POST['submit'])) {
         // Fetch the data (assuming you want to retrieve user information)
         //$user = mysqli_fetch_assoc($result);
         $user = $rows->fetch_assoc();
-        
-        if ($user && password_verify($password, $user['Password'])) {
-            $_SESSION['user_id'] = $user['UserID'];
-             $_SESSION['user_name'] = $user['Name'];		
-             header("location: index.php");
+
+        //if 1 row is found (since email is unique) and then verify password
+        if ($user && password_verify($password, $user['password'])) {
+            if($user['role'] == 'Customer') {
+                $result = $conn->query("
+                SELECT * FROM accounts, customers
+                WHERE accounts.userID = customers.userID AND accounts.email = '$email' 
+                ");
+                $row = $result->fetch_assoc();
+
+                $_SESSION['userID'] = $row['userID'];
+                $_SESSION['customerID'] = $row['customerID'];
+                $_SESSION['customerName'] = $row['customerName'];
+
+                header('Location: customer/index.php');
+
+            }
+            if($user['role'] == 'ServiceProvider') {
+                $result = $conn->query("
+                SELECT * FROM accounts, serviceproviders
+                WHERE accounts.userID = serviceproviders.userID AND accounts.email = '$email' 
+                ");
+                $row = $result->fetch_assoc();
+
+                $_SESSION['userID'] = $row['userID'];
+                $_SESSION['serviceProviderID'] = $row['serviceProviderID'];
+                $_SESSION['companyName'] = $row['companyName'];
+
+                header('Location: serviceprovider/index.php');
+
+            }
+	
         } else {
             $error = true;
             $loginerror = "Incorrect Email or Password!!!";
         }
     }
-
 
 }
 
