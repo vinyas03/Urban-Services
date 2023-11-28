@@ -118,11 +118,13 @@
 
             //Generate 20 character userID
             $length = strlen("$total_users");
-            $userID = "user".str_repeat('0', 16 - $length).$total_users + 1;
+            $userID = "user".str_repeat('0', 16 - $length).($total_users + 1);
 
             //Generate 20 character customerID
             $length = strlen("$total_customers");
-            $customerID = "customer".str_repeat('0', 16 - $length).$total_customers + 1;
+            $customerID = "cust".str_repeat('0', 16 - $length).($total_customers + 1);
+
+            //echo "<script>alert('$customerID');</script>";
 
             $role = "Customer"; //role is enum and can be one of "Customer" or "ServiceProvider"
 
@@ -139,9 +141,9 @@
             $row = $result->fetch_assoc();
             $cityID = $row['cityID'];            
 
-            $insertquery2 = "INSERT INTO customers (userID, customerID, customerName, phone, gender, cityID) VALUES (?, ?, ?, ?, ?, ?)";
+            $insertquery2 = "INSERT INTO customers (customerID, userID, customerName, phone, gender, cityID) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt2 = $conn->prepare($insertquery2);
-            $stmt2->bind_param("ssssss",$userID , $customerID, $name, $phone, $gender, $cityID);
+            $stmt2->bind_param("sssssi", $customerID, $userID, $name, $phone, $gender, $cityID);
             
             
             try {
@@ -149,24 +151,24 @@
                     
                     //increase user count
                     $conn->query(
-                        "UPDATE totalaccounts SET
-                        total_users = total_users + 1,
-                        total_customers = total_customers + 1
+                        "UPDATE totalaccounts SET total_users = total_users+1 , total_customers = total_customers+1
                         "
                     );
 
                     //redirect to customer home page or login page
-                    echo "<script>alert('Registered successfully ! Now you can Login.')</script>";
+                    echo "<script>alert('Registered successfully !</script>";
 
                     $_SESSION['userID'] = $userID;
                     $_SESSION['customerID'] = $customerID;
-
+                    $_SESSION['customerName'] = $name;
                     //stm1->close();
                     //stm2->close();
+
+                    header('Location: customer/index.php');
                 }
             } catch (mysqli_sql_exception $e) {
                 $error = true;
-                $registrationerror = "Error in registration : Email or Phone number already exists - ".$e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
+                $registrationerror = "Error in registration : Check if credentials already used before".$e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
                 //echo $conn->error; // Duplicate entry 'spiderman@gmail.com' for key 'Email'
             }
         } 
