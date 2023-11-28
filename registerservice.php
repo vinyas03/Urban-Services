@@ -214,6 +214,10 @@
                     //redirect to service provider home page or login page
                     echo "<script>alert('Registered successfully !</script>";
 
+                    //destroy older session
+                    //session_destroy();
+                    session_unset();
+
                     $_SESSION['userID'] = $userID;
                     $_SESSION['serviceProviderID'] = $serviceProviderID;
                     $_SESSION['companyName'] = $name;

@@ -159,7 +159,8 @@
                     echo "<script>alert('Registered successfully !</script>";
 
                     //destroy older session
-                    session_destroy();
+                    //session_destroy();
+                    session_unset();
 
                     $_SESSION['userID'] = $userID;
                     $_SESSION['customerID'] = $customerID;
