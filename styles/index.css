@@ -144,6 +144,21 @@ header .nav-buttons .signupBtn {
   transition: all 0.5s ease;
 }
 
+header {
+  position: relative;
+}
+header .nav-buttons .profileImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: gainsboro;
+  overflow: hidden;
+}
+header .nav-buttons .profileImg img {
+  height: 100%;
+  width: 100%;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -200,6 +215,46 @@ body {
   transform: scale(0.8);
 }
 
+/*Customer and ServiceProvider page */
+.profile-dropdown {
+  position: absolute;
+  right: 80px;
+  top: 80px;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  background: whitesmoke;
+  padding: 12px;
+}
+.profile-dropdown .profile-options p {
+  margin: 6px 0;
+}
+.profile-dropdown .profile-options a {
+  text-decoration: none;
+}
+
+.profile-container {
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6px 16px;
+  background: rgb(142, 218, 112);
+}
+.profile-container > div {
+  margin-bottom: 10px;
+}
+.profile-container h2 {
+  text-align: center;
+}
+.profile-container .profile-info {
+  margin-top: 14px;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+}
+.profile-container .profile-info > div {
+  margin: 10px 0;
+}
+
+/*Customer Homepage*/
 .search-container {
   height: auto;
   max-width: 1280px;
@@ -305,11 +360,87 @@ body {
   background: #f510e2;
   color: #fbfcf8;
 }
+.search-container .search-results .search-result .service-info .booknow a {
+  text-decoration: none;
+  color: #fbfcf8;
+}
 .search-container .search-results .search-result .service-info .title {
   font-size: 1.6rem;
 }
 .search-container .search-results .search-result .service-info .title,
 .search-container .search-results .search-result .description,
 .search-container .search-results .search-result .booknow {
+  margin-bottom: 10px;
+}
+
+#requestInfo {
+  resize: none;
+  width: 100%;
+  min-height: 110px;
+}
+
+.bookings-container {
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6px 16px;
+  background: rgb(142, 218, 112);
+}
+.bookings-container > div {
+  margin-bottom: 10px;
+}
+.bookings-container h2 {
+  text-align: center;
+}
+.bookings-container .bookings-results {
+  margin-top: 14px;
+}
+.bookings-container .bookings-results .booking-result {
+  margin: 4px 0;
+  max-width: 100%;
+  background-color: #effeef;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+@media screen and (max-width: 992px) {
+  .bookings-container .bookings-results .booking-result {
+    grid-template-columns: 1fr 1.5fr;
+    -moz-column-gap: 8px;
+         column-gap: 8px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .bookings-container .bookings-results .booking-result {
+    grid-template-columns: 1fr;
+    -moz-column-gap: 0px;
+         column-gap: 0px;
+  }
+}
+.bookings-container .bookings-results .booking-result .service-image img {
+  width: 100%;
+  min-height: 100%;
+}
+.bookings-container .bookings-results .booking-result .service-info .cancelnow {
+  border: none;
+  outline: none;
+  padding: 6px;
+  font-size: 1.03rem;
+  border-radius: 3px;
+  background: #f01e1e;
+  color: #fbfcf8;
+}
+.bookings-container .bookings-results .booking-result .service-info .cancelnow a {
+  text-decoration: none;
+  color: #fbfcf8;
+}
+.bookings-container .bookings-results .booking-result .service-info .title {
+  font-size: 1.6rem;
+}
+.bookings-container .bookings-results .booking-result .service-info .title,
+.bookings-container .bookings-results .booking-result .description,
+.bookings-container .bookings-results .booking-result .cancelnow {
   margin-bottom: 10px;
 }/*# sourceMappingURL=index.css.map */

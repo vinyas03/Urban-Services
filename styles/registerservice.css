@@ -144,6 +144,21 @@ header .nav-buttons .signupBtn {
   transition: all 0.5s ease;
 }
 
+header {
+  position: relative;
+}
+header .nav-buttons .profileImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: gainsboro;
+  overflow: hidden;
+}
+header .nav-buttons .profileImg img {
+  height: 100%;
+  width: 100%;
+}
+
 * {
   padding: 0;
   margin: 0;
