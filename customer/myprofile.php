@@ -112,6 +112,17 @@ $city = $row['cityName'];
 
 
     <script src="../scripts/script.js"></script>
+
+    <script>
+        //profile drop-down list
+        $(".profileImg").click(function() {
+            $(".profile-dropdown").toggle("fast");
+        })
+        
+        $(function() {
+        $(".profile-dropdown").hide();
+        });
+    </script>
     <!-- <script>
         const searchText = document.querySelector('#searchText');
         const searchCity = document.querySelector('#searchCity');
@@ -191,14 +202,14 @@ $city = $row['cityName'];
 
     </script> -->
 
-    <script>
+    <!-- <script>
         //profile drop-down list
         $(".profileImg").click(function() {
             $(".profile-dropdown").toggle("fast");
         })
 
         $(function() {
-            $(".profile-dropdown").hide();;
+            $(".profile-dropdown").hide();
 
             $("#searchBtn").click(function() {
 
@@ -242,6 +253,6 @@ $city = $row['cityName'];
             }
         });
     });
-    </script>
+    </script> -->
 </body>
 </html>
