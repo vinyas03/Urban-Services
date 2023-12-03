@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Dashboard</title>
+    
+</head>
+<style>
+    /* dashboard.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.dashboard-section {
+    margin-bottom: 20px;
+}
+
+.dashboard-section h3 {
+    color: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.accept-btn, .deny-btn, .edit-btn, .register-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+</style>
+<body>
+    <div class="dashboard-container">
+        <h2>Service Provider Dashboard</h2>
+
+        <div class="dashboard-section">
+            <h3>Orders Received</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Service Type</th>
+                        <th>Date</th>
+                        <th>Accept/Deny</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders data -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>Schedule and Availability</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Availability</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Schedule data -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>Employee Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Photo</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Availability Schedule</th>
+                        <th>Available Day</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Smith</td>
+                        <td>123-456-7890</td>
+                        <td><img src="employee_photo.jpg" alt="Employee Photo" width="50"></td>
+                        <td>Whitefield, Bangalore</td>
+                        <td>smith@gmail.com</td>
+                        <td>9:00AM - 5:00PM</td>
+                        <td>Monday - Friday</td>
+                        <td><button class="register-btn">Edit</button></td>
+                    </tr>
+                    <!-- Add more employee rows as needed -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dashboard-section">
+            <button class="register-btn">Add new Employee</button>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>Feedback</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>EmployeeID</th>
+                        <th>Employee Name</th>
+                        <th>Phone</th>
+                        <th>Photo</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Employee Rating</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>123</td>
+                        <td>Smith</td>
+                        <td>123-456-7890</td>
+                        <td><img src="employee_photo.jpg" alt="Employee Photo" width="50"></td>
+                        <td>Whitefield, Bangalore</td>
+                        <td>smith@gmail.com</td>
+                        <td>4</td>
+                        <td><button class="register-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</body>
+</html>
