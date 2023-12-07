@@ -5,6 +5,9 @@ include_once("../db_connect.php");
 if(!isset($_SESSION['customerID'])) {
     header('Location: ../index.php');
 }
+
+include_once("./includes/fetchProfileIMG.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +29,49 @@ if(!isset($_SESSION['customerID'])) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 </head>
+
+
+<style>
+    
+    /*booking form */
+    .form-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.submitBtn {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+</style>
 <body>
 
     <header>
@@ -46,7 +92,7 @@ if(!isset($_SESSION['customerID'])) {
                 
 			<a style="margin:8px 12px;text-align:center;display:block;font-weight:600;font-size:1.25rem;color:#D80032;"><?php echo $_SESSION['customerName']; ?></a>
 			<div class="profileImg"  style="margin:0 14px 0 0;">
-                <img src="../images/png/user.png" alt="profile image">
+                <img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>" alt="profile image">
             </div>
             <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Profile</a> -->
                 
@@ -89,7 +135,15 @@ if(!isset($_SESSION['customerID'])) {
                     <option value="Cleaning">Cleaning</option>
                     <option value="Pest Control">Pest Control</option>
                 </select>
+
+                <div class="search-button">
+                <button type="submit" id="searchBtn">
+                    Search<img src="../images/svg/search-icon.svg" class="search-icon">
+                </button> 
+ 
             </div>
+            </div>
+            
             <!-- <div class="checklist">
                     <div class="checkbox">
                         <label for="plumbing">Plumbing</label>
@@ -114,12 +168,7 @@ if(!isset($_SESSION['customerID'])) {
             </div> -->
 
 
-            <div class="search-button">
-                <button type="submit" id="searchBtn">
-                    Search<img src="../images/svg/search-icon.svg" class="search-icon">
-                </button> 
- 
-            </div>
+
 
             <div class="search-results" id="search-results">
                 <!-- <div class="search-result">
@@ -252,7 +301,8 @@ if(!isset($_SESSION['customerID'])) {
                             searchResult += `
                             <div class="search-result">
                     <div class="service-image">
-                        <img src="../images/3-316-16-9-aspect-ratio-s-sfw-wallpaper-preview (2).jpg" alt="">
+                    <img class="service-img" src="${(provider.profileIMG !== '')?'data:image/jpg;base64,'+`${provider.profileIMG}` : './images/png/user.png'}" alt="provider image">
+                    
                     </div>
                     <div class="service-info">
                         <h3 class="title">${provider.companyName}</h3>
@@ -268,19 +318,21 @@ if(!isset($_SESSION['customerID'])) {
                     </div>
                     <div id="modal-${provider.serviceProviderID}" class="modal booking-box">
                         <form action="./bookservice.php" method="POST">
+                        <h2>Booking form</h2>
                         <input type="text" name="serviceProviderID" id="sid" value="${provider.serviceProviderID}" hidden> <br>
                         <input type="number" name="serviceTypeID" id="typeid" value="${provider.serviceTypeID}" hidden> <br>
                         <label for="date">Date</label>
-                        <input type="date" name='preferredDate' id="date"> <br>
-                        <label>Select time range: </label> <br>
+                        <input type="date" name='preferredDate' id="date" required> 
+                        <label>Select time range: </label> 
                         <label for="timestart" id="timestart">Start: </label>
-                        <input type="time" name='preferredTimeSlotStart' id="timestart"> <br>
+                        <input type="time" name='preferredTimeSlotStart' id="timestart" required> 
                         <label for="timeend">End: </label>
-                        <input type="time" name='preferredTimeSlotEnd' id="timeend"> <br>
-                        <label for="requestinfo" >More info:</label>
-                        <br>
-                        <textarea name="customerRequestInfo" id="requestInfo" maxlength="200" placeholder="Describe your needs (in about 200 characters)"></textarea> <br>
-                         <input type="submit" name="submit" value="submit">
+                        <input type="time" name='preferredTimeSlotEnd' id="timeend" required>
+                        <label for="address" name="customerAddress">Home Address: </label>
+                        <textarea name="customerAddress" id="address" maxlength="200" placeholder="In about 200 characters" required></textarea> 
+                        <label for="requestInfo" >Describe the problem:</label>
+                        <textarea name="customerRequestInfo" id="requestInfo" maxlength="200" placeholder="In about 200 characters" required></textarea> 
+                         <input type="submit" name="submit" class="submitBtn" value="submit">
                         </form>
                         <!--<a href="#" rel="modal:close">Close</a>-->
                     </div>                    
@@ -295,6 +347,12 @@ if(!isset($_SESSION['customerID'])) {
     });
 
 
+    // $("#searchCity").selectize({
+    //     plugins:['remove_button'],
+    // });
+    // $("#serviceType").selectize({
+    //     plugins:['remove_button'],
+    // });
     </script>
 </body>
 </html>

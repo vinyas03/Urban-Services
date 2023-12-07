@@ -6,6 +6,8 @@ if(!isset($_SESSION['customerID'])) {
     header('Location: ../index.php');
 }
 
+include_once("./includes/fetchProfileIMG.php");
+
 $customerID = $_SESSION['customerID'];
 $result = $conn->query("
     SELECT * FROM accounts, customers, cities
@@ -36,9 +38,85 @@ $city = $row['cityName'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <title>Urban Services - Home</title>
 </head>
+<style>
+
+
+
+/*Profile box*/
+.profile-box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.profile-box .profile-image {
+    align-self: stretch; 
+    /* place-self: center; */
+    display: grid;
+    place-items: center;
+}
+.profile-box .profile-image img {
+    max-width: 100%;
+
+}
+
+
+.edit-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;   
+    text-decoration: none;
+    background: #4681f4;
+    color:#f4f4f4;
+}
+
+/*editProfile form*/
+/* Forms*/
+
+.form-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+</style>
+
 <body>
 
     <header>
@@ -59,7 +137,7 @@ $city = $row['cityName'];
                 
 			<a style="margin:8px 12px;text-align:center;display:block;font-weight:600;font-size:1.25rem;color:#D80032;"><?php echo $_SESSION['customerName']; ?></a>
 			<div class="profileImg"  style="margin:0 14px 0 0;">
-                <img src="../images/png/user.png" alt="profile image">
+            <img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>" alt="profile image">
             </div>
             <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Profile</a> -->
                 
@@ -81,10 +159,11 @@ $city = $row['cityName'];
 
 
     <div class="profile-container">
-            <div class="profile-header">
-                <h2>Profile</h2>
-            </div>
-            <div class="profile-info" id="">
+        <div class="profile-header">
+            <h2>My Profile</h2>
+        </div>
+        <div class="profile-box">
+            <div class="profile-info">
                 <div class="user-id">
                     <p>userID: <span><?php echo $userID; ?> </span></p>
                 </div>
@@ -106,8 +185,24 @@ $city = $row['cityName'];
                 <div class="customer-city">
                     <p>City: <span><?php echo $city;?> </span></p>
                 </div>
+                <a class="edit-btn" href="#editProfile-box" rel="modal:open">Edit Profile</a>
             </div>
+
+            <div class="profile-image">
+            <img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>" alt="profile image">
+            </div>
+        </div>
     </div>   
+
+    <div id="editProfile-box" class="modal">
+    <form action="./editprofile.php" method="post" enctype="multipart/form-data">
+            <label for="phone">Phone:</label>
+            <input type="tel" placeholder="Enter 10-digit Phone no." name="phone" minlength="10" maxlength="10" required>    
+            <label for="photo" class="choose-photo">Profile Photo: </label>
+            <input type="file" id="photo" name="profileIMG" accept="image/*">
+            <button type="submit" name="submit">Submit</button>
+        </form>       
+    </div>
 
 
 

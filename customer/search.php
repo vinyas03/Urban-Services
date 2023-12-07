@@ -11,22 +11,26 @@ if (isset($_POST['searchCity']) && isset($_POST['serviceType'])) {
 
 
      $result = $conn->query(
-    "SELECT T.cityName, Y.serviceTypeID, Y.serviceTypeName, P.companyName, P.serviceProviderID, P.startTime, P.endTime FROM serviceproviders P, serviceprovidercities C, cities T, serviceproviderservices S, servicetypes Y 
+    "SELECT * FROM serviceproviders P, serviceprovidercities C, cities T, serviceproviderservices S, servicetypes Y 
     WHERE P.serviceProviderID=C.serviceProviderID AND T.cityID=C.cityID AND S.serviceProviderID=P.serviceProviderID
      AND Y.serviceTypeID = S.serviceTypeID AND Y.serviceTypeName ='$serviceType' AND T.cityName='$city';
     ");
 
-
-    $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-    //var_dump($rows);
-
-    if (count($rows) > 0) {
-        echo json_encode($rows);
-    } else {
-        echo '{"failed": true }';
-    }
-
+    //$rows = $result->fetch_all(MYSQLI_ASSOC);
+    while ($row = $result->fetch_assoc()) {
+        // Encode image data using base64
+        $row['profileIMG'] = base64_encode($row['profileIMG']);
+        $rows[] = $row;
+        }
+        //var_dump($rows);
+    
+        // if (count($rows) > 0) {
+        if(isset($rows)) {
+            echo json_encode($rows);
+        } else {
+            echo '{"failed": true }';
+        }
+    
 
 }
 
