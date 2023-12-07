@@ -10,13 +10,14 @@ if(!isset($_SESSION['serviceProviderID'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['serviceProviderID'])) {
     $serviceProviderID = $_SESSION['serviceProviderID'];
     $result = $conn->query(
-        "SELECT * FROM customers A, bookings B, cities C, servicetypes S
-        WHERE serviceProviderID = '$serviceProviderID' AND B.customerID = A.customerID 
-        AND B.cityID = C.cityID AND B.serviceTypeID = S.serviceTypeID
+        "SELECT * FROM serviceemployees S, servicetypes T
+        WHERE S.serviceProviderID = '$serviceProviderID' AND S.serviceTypeID = T.serviceTypeID
         ");
-//select * from serviceemployees E , servicetypes T where serviceProviderID = 'sprv000000000000001' and T.serviceTypeID=E.serviceTypeID;
 
-
+    // $result = $conn->query(
+    //     "SELECT * FROM serviceemployees S, serviceprovideremployees T
+    //     WHERE S.employeeID = T.employeeID AND serviceProviderID = '$serviceProviderID'
+    //     ");
 
     // $rows = $result->fetch_all(MYSQLI_ASSOC);
         
@@ -36,6 +37,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['serviceProviderID'])
     
 }
 
-
 ?>
-
