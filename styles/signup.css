@@ -6,6 +6,7 @@ header {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  background: #fff;
 }
 @media screen and (max-width: 992px) {
   header {
@@ -84,7 +85,8 @@ header .nav-items li {
 header .nav-items a {
   text-decoration: none;
   font-size: 1.2rem;
-  color: #fbfcf8;
+  color: #022279;
+  font-weight: 600;
 }
 @media screen and (max-width: 992px) {
   header .nav-items a {
@@ -119,14 +121,14 @@ header .nav-buttons a {
   }
 }
 header .nav-buttons .loginBtn {
-  color: #ffffff;
-  background: #22053e;
+  color: #022279;
+  background: #ffb600;
   border-radius: 5px;
   padding: 7px;
 }
 header .nav-buttons .signupBtn {
-  color: #ffffff;
-  background: #22053e;
+  color: #022279;
+  background: #ffb600;
   border-radius: 5px;
   padding: 7px;
 }
@@ -134,7 +136,7 @@ header .nav-buttons .signupBtn {
 .nav-items.active {
   height: 100%;
   transition: all 0.5s ease;
-  background: #1997fc;
+  background: #ffffff;
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }
@@ -157,6 +159,8 @@ header .nav-buttons .profileImg {
 header .nav-buttons .profileImg img {
   height: 100%;
   width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 * {
@@ -167,7 +171,7 @@ header .nav-buttons .profileImg img {
 }
 
 body {
-  background: #1997fc;
+  background: #ffffff;
 }
 
 form {
@@ -266,7 +270,7 @@ form {
 .gender-options input[type=radio] {
   display: inline;
   cursor: pointer;
-  accent-color: #22053e;
+  accent-color: #ffb600;
 }
 
 .gender-options label {
