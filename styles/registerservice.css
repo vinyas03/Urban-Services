@@ -6,7 +6,9 @@ header {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  background: #fff;
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 @media screen and (max-width: 992px) {
   header {
@@ -37,13 +39,13 @@ header .logo-wrapper {
   }
 }
 header .logo-wrapper .logo {
-  height: 60px;
-  width: 60px;
+  height: auto;
+  width: 150px;
 }
 @media screen and (max-width: 992px) {
   header .logo-wrapper .logo {
-    height: 40px;
-    width: 40px;
+    height: auto;
+    width: 150px;
   }
 }
 header .logo-wrapper .title {
@@ -136,7 +138,7 @@ header .nav-buttons .signupBtn {
 .nav-items.active {
   height: 100%;
   transition: all 0.5s ease;
-  background: #ffffff;
+  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }
@@ -171,7 +173,7 @@ header .nav-buttons .profileImg img {
 }
 
 body {
-  background: #ffffff;
+  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
 }
 
 form {

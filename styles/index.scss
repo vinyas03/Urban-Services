@@ -11,6 +11,8 @@
 
 body {
   background: $main-bgColor;
+  width: 100%;
+  min-height: 100vh;
 }
 
 //Hero section
@@ -73,7 +75,7 @@ body {
   background: whitesmoke;
   padding: 12px;
   display: none;
-  border-radius: 3%;
+  border-radius: 6px;
   .profile-options {
     p {
       margin: 6px 0;
@@ -89,14 +91,15 @@ body {
   height: auto;
   //background-color: #1B9CE5;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 6px 16px;
-  background: whitesmoke;
+  // background: #ffffff;
 
   > div {
     margin-bottom: 10px;
   }
   h2 {
+    margin: 8px 0;
     text-align: center;
   }
   .profile-box {
@@ -120,7 +123,7 @@ body {
   height: auto;
   //background-color: #1B9CE5;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 6px 16px;
   //background: rgb(142, 218, 112);
 
@@ -172,6 +175,8 @@ body {
     background: $search-btn;
     min-height: 100%;
     padding: 12px;
+    border-radius: 50%;
+    border: 1px solid #dde2f1;
     #searchBtn {
       margin: 0 auto;
       display: flex;
@@ -183,8 +188,8 @@ body {
       font-size: 1.03rem;
       font-weight: 600;
       .search-icon {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
       }
     }
   }
@@ -196,7 +201,7 @@ body {
     .search-result {
       margin: 10px 0;
       max-width: 100%;
-      background-color: #effeef;
+      background-color: #ffffff;
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
       padding: 6px;
@@ -219,27 +224,38 @@ body {
         min-height: 100%;
       }
 
+      .service-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
       .service-info .booknow {
         border: none;
         outline: none;
-        padding: 6px;
-        font-size: 1.03rem;
+        padding: 10px;
+        font-size: 1.05rem;
         border-radius: 3px;
         background: $bookNow-btn;
-        color: $btnText-light;
+        color: $btnText-dark;
 
         a {
           text-decoration: none;
-          color: $btnText-light;
+          color: $btnText-dark;
         }
       }
       .service-info .title {
         font-size: 1.6rem;
       }
+
       .service-info .title,
       .description,
       .booknow {
         margin-bottom: 10px;
+      }
+      .description p {
+        margin-bottom: 12px;
+        font-size: 1.1rem;
       }
     }
   }
@@ -298,12 +314,20 @@ body {
         //max-width: 360px;
         min-height: 100%;
       }
-
+      .service-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .service-info p {
+        font-size: 1.1rem;
+      }
       .service-info .cancelnow {
         border: none;
         outline: none;
         padding: 3px;
-        font-size: 1.02rem;
+        font-size: 1.1rem;
         border-radius: 3px;
         background: $cancelNow-btn;
         color: $btnText-light;
@@ -314,8 +338,9 @@ body {
       }
       .service-info .give-feedback {
         padding: 3px;
-        background: #e92c91;
+        background: tomato;
         color: #f4f4f4;
+        font-size: 1.1rem;
         display: inline-block;
         border-radius: 2px;
         text-decoration: none;
@@ -331,6 +356,9 @@ body {
 
       .cancelnow {
         text-decoration: none;
+      }
+      .description .booking-status {
+        font-size: 1.35rem;
       }
     }
   }

@@ -1,13 +1,12 @@
 //Navbar, login and reigistration pages
 // $main-bgColor: #1997fc;
-// $main-bgColor: linear-gradient(
-//   109.5deg,
-//   rgb(76, 221, 242) 11.2%,
-//   rgb(92, 121, 255) 91.1%
-// );
-$main-bgColor: #ffffff;
+$main-bgColor: linear-gradient(
+  109.5deg,
+  rgb(76, 221, 242) 11.2%,
+  rgb(92, 121, 255) 91.1%
+);
+//$main-bgColor: #ffffff;
 $header-bgColor: #fff;
-
 $logo-Color: #22053e;
 
 $btn-Color: #022279;
@@ -26,7 +25,8 @@ $formShadow: #666;
 
 //Customer features
 $btnText-light: #fbfcf8;
+$btnText-dark: #111111;
 $search-btn: #ffffff;
-$bookNow-btn: #f510e2;
+$bookNow-btn: #ffb600;
 
 $cancelNow-btn: #f01e1e;

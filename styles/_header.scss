@@ -9,7 +9,10 @@ header {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  background: $header-bgColor;
+  //background: $header-bgColor;
+  backdrop-filter: blur(30px);
+  background-color: rgb(255, 255, 255, 0.3);
+  //border: 1px solid #eeeeee;
   @include mediumDevice {
     justify-content: center;
   }
@@ -37,12 +40,12 @@ header {
       margin-left: 12px;
     }
     .logo {
-      height: 60px;
-      width: 60px;
+      height: auto;
+      width: 150px;
 
       @include mediumDevice {
-        height: 40px;
-        width: 40px;
+        height: auto;
+        width: 150px;
       }
     }
     .title {

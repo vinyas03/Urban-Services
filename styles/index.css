@@ -6,7 +6,9 @@ header {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  background: #fff;
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 @media screen and (max-width: 992px) {
   header {
@@ -37,13 +39,13 @@ header .logo-wrapper {
   }
 }
 header .logo-wrapper .logo {
-  height: 60px;
-  width: 60px;
+  height: auto;
+  width: 150px;
 }
 @media screen and (max-width: 992px) {
   header .logo-wrapper .logo {
-    height: 40px;
-    width: 40px;
+    height: auto;
+    width: 150px;
   }
 }
 header .logo-wrapper .title {
@@ -136,7 +138,7 @@ header .nav-buttons .signupBtn {
 .nav-items.active {
   height: 100%;
   transition: all 0.5s ease;
-  background: #ffffff;
+  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }
@@ -171,7 +173,9 @@ header .nav-buttons .profileImg img {
 }
 
 body {
-  background: #ffffff;
+  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
+  width: 100%;
+  min-height: 100vh;
 }
 
 .hero-container {
@@ -228,7 +232,7 @@ body {
   background: whitesmoke;
   padding: 12px;
   display: none;
-  border-radius: 3%;
+  border-radius: 6px;
 }
 .profile-dropdown .profile-options p {
   margin: 6px 0;
@@ -240,14 +244,14 @@ body {
 .profile-container {
   height: auto;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 6px 16px;
-  background: whitesmoke;
 }
 .profile-container > div {
   margin-bottom: 10px;
 }
 .profile-container h2 {
+  margin: 8px 0;
   text-align: center;
 }
 .profile-container .profile-box {
@@ -267,7 +271,7 @@ body {
 .search-container {
   height: auto;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 6px 16px;
 }
 .search-container > div {
@@ -316,6 +320,8 @@ body {
   background: #ffffff;
   min-height: 100%;
   padding: 12px;
+  border-radius: 50%;
+  border: 1px solid #dde2f1;
 }
 .search-container .search-button #searchBtn {
   margin: 0 auto;
@@ -329,8 +335,8 @@ body {
   font-weight: 600;
 }
 .search-container .search-button #searchBtn .search-icon {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
 }
 .search-container .search-results {
   margin-top: 14px;
@@ -338,7 +344,7 @@ body {
 .search-container .search-results .search-result {
   margin: 10px 0;
   max-width: 100%;
-  background-color: #effeef;
+  background-color: #ffffff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 6px;
   display: grid;
@@ -364,18 +370,24 @@ body {
   width: 100%;
   min-height: 100%;
 }
+.search-container .search-results .search-result .service-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
 .search-container .search-results .search-result .service-info .booknow {
   border: none;
   outline: none;
-  padding: 6px;
-  font-size: 1.03rem;
+  padding: 10px;
+  font-size: 1.05rem;
   border-radius: 3px;
-  background: #f510e2;
-  color: #fbfcf8;
+  background: #ffb600;
+  color: #111111;
 }
 .search-container .search-results .search-result .service-info .booknow a {
   text-decoration: none;
-  color: #fbfcf8;
+  color: #111111;
 }
 .search-container .search-results .search-result .service-info .title {
   font-size: 1.6rem;
@@ -384,6 +396,10 @@ body {
 .search-container .search-results .search-result .description,
 .search-container .search-results .search-result .booknow {
   margin-bottom: 10px;
+}
+.search-container .search-results .search-result .description p {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
 }
 
 #requestInfo {
@@ -436,11 +452,20 @@ body {
   width: 100%;
   min-height: 100%;
 }
+.bookings-container .bookings-results .booking-result .service-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.bookings-container .bookings-results .booking-result .service-info p {
+  font-size: 1.1rem;
+}
 .bookings-container .bookings-results .booking-result .service-info .cancelnow {
   border: none;
   outline: none;
   padding: 3px;
-  font-size: 1.02rem;
+  font-size: 1.1rem;
   border-radius: 3px;
   background: #f01e1e;
   color: #fbfcf8;
@@ -451,8 +476,9 @@ body {
 }
 .bookings-container .bookings-results .booking-result .service-info .give-feedback {
   padding: 3px;
-  background: #e92c91;
+  background: tomato;
   color: #f4f4f4;
+  font-size: 1.1rem;
   display: inline-block;
   border-radius: 2px;
   text-decoration: none;
@@ -467,4 +493,7 @@ body {
 }
 .bookings-container .bookings-results .booking-result .cancelnow {
   text-decoration: none;
+}
+.bookings-container .bookings-results .booking-result .description .booking-status {
+  font-size: 1.35rem;
 }/*# sourceMappingURL=index.css.map */
