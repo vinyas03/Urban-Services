@@ -61,8 +61,6 @@ body {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
 }
 
 h2 {
@@ -99,6 +97,12 @@ th, td {
     display: grid;
     grid-template-columns: 2fr 1fr;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.profile-box .profile-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
 }
 .profile-box .profile-image {
     align-self: stretch; 
@@ -212,8 +216,8 @@ button {
             <img class="menu" src="../images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="../images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
+            <img src="../images/png/logo.jpeg" class="logo" />
+            <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
@@ -227,9 +231,6 @@ button {
 			<div class="profileImg"  style="margin:0 14px 0 0;">
                 <a href="./myprofile.php"><img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>" alt="profile image"></a>
             </div>
-            <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Profile</a> -->
-                
-            <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Settings</a> -->
             <a href="../logout.php"class="loginBtn">Log Out</a>
 			<?php } else { ?>
                     <a href="../login.php" class="loginBtn">Login</a>
@@ -250,12 +251,12 @@ button {
         </div>
         <div class="profile-box">
             <div class="profile-info">
-                <div class="user-id">
-                    <p>User ID: <span><?php echo $userID; ?> </span></p>
+                <!-- <div class="user-id">
+                    <p>User ID: <span><?php //echo $userID; ?> </span></p>
                 </div>
                 <div class="serviceprovider-id">
-                    <p>Service Provider ID: <span><?php echo $serviceProviderID; ?> </span></p>
-                </div>
+                    <p>Service Provider ID: <span><?php //echo $serviceProviderID; ?> </span></p>
+                </div> -->
                 <div class="customer-name">
                     <p>Service Provider Name: <span><?php echo $companyName; ?> </span></p>
                 </div>
@@ -278,8 +279,8 @@ button {
 
     <div id="editProfile-box" class="modal">
     <form action="./editprofile.php" method="post" enctype="multipart/form-data">
-            <label for="phone">Phone:</label>
-            <input type="tel" placeholder="Enter 10-digit Phone no." name="phone" minlength="10" maxlength="10" required>    
+            <!-- <label for="phone">Phone:</label>
+            <input type="tel" placeholder="Enter 10-digit Phone no." name="phone" minlength="10" maxlength="10" required>     -->
             <label for="photo" class="choose-photo">Profile Photo: </label>
             <input type="file" id="photo" name="profileIMG" accept="image/*">
             <button type="submit" name="submit">Submit</button>
