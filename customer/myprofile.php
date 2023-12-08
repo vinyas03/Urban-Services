@@ -196,8 +196,8 @@ button {
 
     <div id="editProfile-box" class="modal">
     <form action="./editprofile.php" method="post" enctype="multipart/form-data">
-            <label for="phone">Phone:</label>
-            <input type="tel" placeholder="Enter 10-digit Phone no." name="phone" minlength="10" maxlength="10" required>    
+            <!-- <label for="phone">Phone:</label>
+            <input type="tel" placeholder="Enter 10-digit Phone no." name="phone" minlength="10" maxlength="10" required>     -->
             <label for="photo" class="choose-photo">Profile Photo: </label>
             <input type="file" id="photo" name="profileIMG" accept="image/*">
             <button type="submit" name="submit">Submit</button>

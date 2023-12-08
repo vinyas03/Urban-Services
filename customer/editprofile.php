@@ -9,7 +9,7 @@ if(!isset($_SESSION['customerID'])) {
 
 
 if (isset($_POST['submit'])) {
-    $phone = $_POST['phone'];
+    // $phone = $_POST['phone'];
     
     if (is_uploaded_file($_FILES['profileIMG']['tmp_name'])) {
         $imgData = file_get_contents($_FILES['profileIMG']['tmp_name']);
