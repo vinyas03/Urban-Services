@@ -23,17 +23,20 @@ if (isset($_POST['submit'])) {
     }
 
     if(!$error) {
-        $insertquery = "INSERT INTO feedback 
-        (bookingID, rating, remarks) 
-        VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($insertquery);
-        $stmt->bind_param("sis", $bookingID, $rating, $remarks);
-        $stmt->execute();
-        //echo "Feedback submitted successfully";
-    } //else {
-        //$error = true;
-        //echo "Feedback submission failed! You have already sent a feedback.";
-    //}
+        // $insertquery = "INSERT INTO feedback 
+        // (bookingID, rating, remarks) 
+        // VALUES (?, ?, ?)";
+        // $stmt = $conn->prepare($insertquery);
+        // $stmt->bind_param("sis", $bookingID, $rating, $remarks);
+        // $stmt->execute();
+        $conn->query("INSERT INTO feedback 
+         (bookingID, rating, remarks) VALUES ('$bookingID', $rating, '$remarks')");
+        //echo "$bookingID  $rating   $remarks";
+        echo "Feedback submitted successfully";
+    } else {
+        $error = true;
+        echo "Feedback submission failed! You have already sent a feedback.";
+    }
 
     // if() {
     //     $error = false;
