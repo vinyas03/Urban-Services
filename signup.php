@@ -103,7 +103,7 @@
             //find total accounts in the database
             $result = $conn->query(
                 "SELECT SUM(total_users) AS total_users, SUM(total_customers) AS total_customers 
-                FROM totalaccounts"
+                FROM totalaccounts" 
             );
             $row = $result->fetch_assoc();
             $total_users = $row['total_users'];
@@ -208,8 +208,8 @@
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="./images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
+            <img src="./images/png/logo.jpeg" class="logo" />
+            <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>

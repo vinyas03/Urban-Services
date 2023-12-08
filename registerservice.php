@@ -273,8 +273,8 @@
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="./images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
+            <img src="./images/png/logo.jpeg" class="logo" />
+            <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>

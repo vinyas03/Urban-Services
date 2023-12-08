@@ -121,8 +121,8 @@ if (isset($_POST['submit'])) {
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="./images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
+            <img src="./images/png/logo.jpeg" class="logo">
+            <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
@@ -164,7 +164,7 @@ if (isset($_POST['submit'])) {
          <button type="button" class="cancelbtn"> Cancel</button> -->   
         <div class="form-footer">
            <div class="forgot-password">
-                <p>Forgot<a href="#"> password? </a></p>
+                <p>Forgot<a href="./forgotpassword.php"> password? </a></p>
            </div>
             <div class="register-here">
                 <p class="register-link">Don't have an account? <a href="./signup.php">Register</a> Here</p>
