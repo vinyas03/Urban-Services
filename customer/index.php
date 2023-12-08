@@ -11,113 +11,260 @@ include_once("./includes/fetchProfileIMG.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/index.css">
-    <link rel="shortcut icon" href="../images/png/logo.png" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link
+      rel="shortcut icon"
+      href="../images/png/logo.png"
+      type="image/x-icon"
+    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+      integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+      integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-</head>
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
+  </head>
 
-
-<style>
-    
+  <style>
     /*booking form */
     .form-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-}
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+    }
 
-h2 {
-    text-align: center;
-    color: #333;
-}
+    h2 {
+      text-align: center;
+      color: #333;
+    }
 
-form {
-    display: grid;
-    gap: 10px;
-}
+    form {
+      display: grid;
+      gap: 10px;
+    }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
 
-input, textarea {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
+    input,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
 
-.submitBtn {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-</style>
-<body>
+    .submitBtn {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
 
+
+
+
+
+    /* Select city and service*/
+    @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none;
+      list-style: none;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .wrapper {
+      /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+    }
+
+    .wrapper .search_box {
+      /* width: 500px; */
+      background: #fff;
+      border-radius: 5px;
+      height: 65px;
+      display: flex;
+      padding: 10px;
+      box-shadow: 0 8px 6px -10px #b3c6ff;
+    }
+
+    .wrapper .search-button {
+      margin: 0 10px;
+    }
+    .wrapper .search_box .dropdown {
+      width: 200px;
+      color: #22053e;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .wrapper .search_box.searchCityBox {
+      border: 1px solid #dde2f1;
+    }
+    .wrapper .search_box.searchServiceBox {
+      border: 1px solid #dde2f1;
+    }
+    .wrapper .search_box .dropdown .default_option {
+      text-transform: uppercase;
+      padding: 13px 15px;
+      font-size: 14px;
+    }
+
+    .wrapper .search_box .dropdown ul {
+      position: absolute;
+      top: 70px;
+      left: -10px;
+      background: #fff;
+      width: 150px;
+      border-radius: 5px;
+      padding: 20px;
+      display: none;
+      box-shadow: 8px 8px 6px -10px #b3c6ff;
+    }
+
+    .wrapper .search_box .dropdown ul.active {
+      display: block;
+    }
+
+    .wrapper .search_box .dropdown ul li {
+      padding-bottom: 20px;
+    }
+
+    .wrapper .search_box .dropdown ul li:last-child {
+      padding-bottom: 0;
+    }
+
+    .wrapper .search_box .dropdown ul li:hover {
+      color: #6f768d;
+    }
+
+    .wrapper .search_box .dropdown:before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      border: 8px solid;
+      border-color: #5078ef transparent transparent transparent;
+    }
+
+    ::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #9fa3b1;
+    }
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #9fa3b1;
+    }
+    :-ms-input-placeholder {
+      /* IE 10+ */
+      color: #9fa3b1;
+    }
+  </style>
+  <body>
     <header>
-        <div class="toggleBtn">
-            <img class="menu" src="../images/svg/burger-menu-left.svg" width="40px" height="40px">
-        </div>
-        <div class="logo-wrapper">
-            <img src="../images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
-        </div>
-        <ul class="nav-items">
-            <li><a href="./index.php">Home</a></li>
-            <li><a href="#">About</a></li>
-            <!-- <li><a href="#">Register a service</a></li> -->
-        </ul>
-        <div class="nav-buttons">
+      <div class="toggleBtn">
+        <img
+          class="menu"
+          src="../images/svg/burger-menu-left.svg"
+          width="40px"
+          height="40px"
+        />
+      </div>
+      <div class="logo-wrapper">
+        <img src="../images/png/logo.jpeg" class="logo" />
+        <!-- <div class="title">Urban Services</div> -->
+      </div>
+      <ul class="nav-items">
+        <li><a href="./index.php">Home</a></li>
+        <li><a href="#">About</a></li>
+        <!-- <li><a href="#">Register a service</a></li> -->
+      </ul>
+      <div class="nav-buttons">
         <?php if (isset($_SESSION['customerID'])) { ?>
-                
-			<a style="margin:8px 12px;text-align:center;display:block;font-weight:600;font-size:1.25rem;color:#D80032;"><?php echo $_SESSION['customerName']; ?></a>
-			<div class="profileImg"  style="margin:0 14px 0 0;">
-                <img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>" alt="profile image">
-            </div>
-            <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Profile</a> -->
-                
-            <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Settings</a> -->
-            <a href="../logout.php"class="loginBtn">Log Out</a>
-			<?php } else { ?>
-                    <a href="../login.php" class="loginBtn">Login</a>
-                    <a href="../signup.php" class="signupBtn">Register</a>				
-		    <?php } ?>
-            <div class="profile-dropdown">
-            <div class="profile-options">
-                <p><a href="./myprofile.php">My Profile</a></p>
-                <p><a href="./mybookings.php">My Bookings</a></p>
-            </div>
-            </div>
+
+        <a
+          style="
+            margin: 8px 12px;
+            text-align: center;
+            display: block;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #d80032;
+          "
+          ><?php echo $_SESSION['customerName']; ?></a
+        >
+        <div class="profileImg" style="margin: 0 14px 0 0">
+          <img src="<?php echo (isset($profileIMGData)) ? "data:image/jpg;base64,$profileIMGData" : "../images/png/user.png"; ?>"
+          alt="profile image">
         </div>
+        <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Profile</a> -->
+
+        <!-- <a style="margin:8px 6px;font-weight:500;font-size:1.2rem;color:gold;">Settings</a> -->
+        <a href="../logout.php" class="loginBtn">Log Out</a>
+        <?php } else { ?>
+        <a href="../login.php" class="loginBtn">Login</a>
+        <a href="../signup.php" class="signupBtn">Register</a>
+        <?php } ?>
+        <div class="profile-dropdown">
+          <div class="profile-options">
+            <p><a href="./myprofile.php">My Profile</a></p>
+            <p><a href="./mybookings.php">My Bookings</a></p>
+          </div>
+        </div>
+      </div>
     </header>
-    
+
     <div class="search-container">
-            <div class="search-header">
-                <h2>Search for services</h2>
-            </div>
-            <div class="search-field">
-                <!-- <input type="text" name="searchText" id="searchText" placeholder="Search for services"> -->
-                <select name="searchCity" id="searchCity">
+      <div class="search-header">
+        <h2>Search for services</h2>
+      </div>
+      <div class="search-field">
+        <!-- <input type="text" name="searchText" id="searchText" placeholder="Search for services"> -->
+        <!-- <select name="searchCity" id="searchCity">
                     <option value="none">-- Select City --</option>
                     <option value="Bangalore">Bangalore</option>
                     <option value="Mumbai">Mumbai</option>
@@ -125,26 +272,47 @@ input, textarea {
                     <option value="Hyderabad">Hyderabad</option>
                     <option value="Delhi">Delhi</option>
                     <option value="Kolkata">Kolkata</option>
-                </select>
+                </select> -->
 
-                <select name="serviceType" id="serviceType">
-                    <option value="none">-- Select Service --</option>
-                    <option value="Plumbing">Plumbing</option>
-                    <option value="Electricals">Electricals</option>
-                    <option value="Carpentry">Carpentry</option>
-                    <option value="Cleaning">Cleaning</option>
-                    <option value="Pest Control">Pest Control</option>
-                </select>
+        <div class="wrapper">
+          <div class="search_box searchCityBox">
+            <div class="dropdown" id="searchCityDropdown">
+              <div class="default_option">Select City</div>
+              <ul>
+                <!-- <li value="none">-- Select City --</li> -->
+                <li value="Bangalore">Bangalore</li>
+                <li value="Mumbai">Mumbai</li>
+                <li value="Chennai">Chennai</li>
+                <li value="Hyderabad">Hyderabad</li>
+                <li value="Delhi">Delhi</li>
+                <li value="Kolkata">Kolkata</li>
+              </ul>
+            </div>
+          </div>
 
-                <div class="search-button">
-                <button type="submit" id="searchBtn">
-                    Search<img src="../images/svg/search-icon.svg" class="search-icon">
-                </button> 
- 
+          <div class="search_box searchServiceBox">
+            <div class="dropdown" id="serviceTypeDropdown">
+              <div class="default_option">Select Service</div>
+              <ul>
+                <!-- <li value="none">-- Select Service --</li> -->
+                <li value="Plumbing">Plumbing</li>
+                <li value="Electricals">Electricals</li>
+                <li value="Carpentry">Carpentry</li>
+                <li value="Cleaning">Cleaning</li>
+                <li value="Pest Control">Pest Control</li>
+              </ul>
             </div>
+          </div>
+
+          <div class="search-button">
+            <div id="searchBtn">
+              <img src="../images/png/search.png" class="search-icon" />
             </div>
-            
-            <!-- <div class="checklist">
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="checklist">
                     <div class="checkbox">
                         <label for="plumbing">Plumbing</label>
                         <input type="checkbox" name="serviceType" class="serviceType" value="Plumbing" id="plumbing">
@@ -167,11 +335,8 @@ input, textarea {
                     </div>
             </div> -->
 
-
-
-
-            <div class="search-results" id="search-results">
-                <!-- <div class="search-result">
+      <div class="search-results" id="search-results">
+        <!-- <div class="search-result">
                     <div class="service-image">
                         <img src="../images/wallpaper-7415571_1280.jpg" alt="">
                     </div>
@@ -186,8 +351,8 @@ input, textarea {
                     </div>
                 </div>
                   -->
-            </div>
-     </div>
+      </div>
+    </div>
 
     <script src="../scripts/script.js"></script>
     <!-- <script>
@@ -270,57 +435,78 @@ input, textarea {
     </script> -->
 
     <script>
-        //profile drop-down list
-        $(".profileImg").click(function() {
-            $(".profile-dropdown").toggle("fast");
-        })
+      //profile drop-down list
+      $(".profileImg").click(function () {
+        $(".profile-dropdown").toggle("fast");
+      });
 
-
-        //search services
-        $(function() {
+      //search services
+      $(function () {
         $(".profile-dropdown").hide();
-        $("#searchBtn").click(function() {
+        $("#searchBtn").click(function () {
+          var searchCity = $("#searchCityDropdown .default_option").text();
+          var serviceType = $("#serviceTypeDropdown .default_option").text();
 
-            var searchCity = $("#searchCity").val();
-            var serviceType = $("#serviceType").val();
+          console.log("Search City:", searchCity);
+          console.log("Service Type:", serviceType);
+          //var searchCity = $("#searchCity").val();
+          //var serviceType = $("#serviceType").val();
 
-            if (searchCity == "none" || serviceType == "none") {
-                alert("Don't leave search fields empty!");
-            } else {
-                $.post('search.php', {
-                    searchCity: searchCity,
-                    serviceType: serviceType
-                }, function(res) {
-                    var providers = JSON.parse(res);
-                    var searchResult = "";
+          if (searchCity == "none" || serviceType == "none") {
+            alert("Don't leave search fields empty!");
+          } else {
+            $.post(
+              "search.php",
+              {
+                searchCity: searchCity,
+                serviceType: serviceType,
+              },
+              function (res) {
+                var providers = JSON.parse(res);
+                var searchResult = "";
 
-                    if (providers.failed == true) {
-                        searchResult = `<p style="color:red">No Service Providers found...<p>`;
-                    } else {
-                        providers.forEach(function(provider, i) {
-                            searchResult += `
+                if (providers.failed == true) {
+                  searchResult = `<p style="color:red">No Service Providers found...<p>`;
+                } else {
+                  providers.forEach(function (provider, i) {
+                    searchResult += `
                             <div class="search-result">
                     <div class="service-image">
-                    <img class="service-img" src="${(provider.profileIMG !== '')?'data:image/jpg;base64,'+`${provider.profileIMG}` : './images/png/user.png'}" alt="provider image">
+                    <img class="service-img" src="${
+                      provider.profileIMG !== ""
+                        ? "data:image/jpg;base64," + `${provider.profileIMG}`
+                        : "./images/png/user.png"
+                    }" alt="provider image">
                     
                     </div>
                     <div class="service-info">
                         <h3 class="title">${provider.companyName}</h3>
-                        <h5 class="sid">${ provider.serviceProviderID}</h5>
                         <div class="description">
                             <p class="text">${provider.serviceTypeName}</p>
-                            <p class="timings">Work hours: ${provider.startTime} to ${provider.endTime}</p>
+                            <p class="timings">Work hours: ${
+                              provider.startTime
+                            } to ${provider.endTime}</p>
                             <p class="city">${provider.cityName}</p>
                         </div> 
-                       <!-- <button class="booknow"><a href='bookservice.php?provider=${provider.serviceProviderID}'>Book now</a></button>-->
-                        <button class="booknow"><a href="#modal-${provider.serviceProviderID}" rel="modal:open">Book Now</a></button>
+                       <!-- <button class="booknow"><a href='bookservice.php?provider=${
+                         provider.serviceProviderID
+                       }'>Book now</a></button>-->
+                        <button class="booknow"><a href="#modal-${
+                          provider.serviceProviderID
+                        }" rel="modal:open">Book Now</a></button>
                     </div>
                     </div>
-                    <div id="modal-${provider.serviceProviderID}" class="modal booking-box">
+                    <div id="modal-${
+                      provider.serviceProviderID
+                    }" class="modal booking-box">
                         <form action="./bookservice.php" method="POST">
                         <h2>Booking form</h2>
-                        <input type="text" name="serviceProviderID" id="sid" value="${provider.serviceProviderID}" hidden> <br>
-                        <input type="number" name="serviceTypeID" id="typeid" value="${provider.serviceTypeID}" hidden> <br>
+                        <input type="text" name="serviceProviderID" id="sid" value="${
+                          provider.serviceProviderID
+                        }" hidden> <br>
+                        <input type="number" name="serviceTypeID" id="typeid" value="${
+                          provider.serviceTypeID
+                        }" hidden> <br>
                         <label for="date">Date</label>
                         <input type="date" name='preferredDate' id="date" required> 
                         <label>Select time range: </label> 
@@ -337,22 +523,49 @@ input, textarea {
                         <!--<a href="#" rel="modal:close">Close</a>-->
                     </div>                    
                     
-                    `;                      
-                        });
-                    }
-                    $("#search-results").html(searchResult);
-                });
-            }
+                    `;
+                  });
+                }
+                $("#search-results").html(searchResult);
+              }
+            );
+          }
         });
-    });
+      });
 
+      // $("#searchCity").selectize({
+      //     plugins:['remove_button'],
+      // });
+      // $("#serviceType").selectize({
+      //     plugins:['remove_button'],
+      // });
+      $(document).on(
+        "click",
+        "#searchCityDropdown .default_option",
+        function () {
+          $("#searchCityDropdown ul").addClass("active");
+        }
+      );
 
-    // $("#searchCity").selectize({
-    //     plugins:['remove_button'],
-    // });
-    // $("#serviceType").selectize({
-    //     plugins:['remove_button'],
-    // });
+      $(document).on("click", "#searchCityDropdown ul li", function () {
+        var text = $(this).text();
+        $("#searchCityDropdown .default_option").text(text);
+        $("#searchCityDropdown ul").removeClass("active");
+      });
+
+      $(document).on(
+        "click",
+        "#serviceTypeDropdown .default_option",
+        function () {
+          $("#serviceTypeDropdown ul").addClass("active");
+        }
+      );
+
+      $(document).on("click", "#serviceTypeDropdown ul li", function () {
+        var text = $(this).text();
+        $("#serviceTypeDropdown .default_option").text(text);
+        $("#serviceTypeDropdown ul").removeClass("active");
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -69,6 +69,14 @@ input, textarea {
     border: none;
     cursor: pointer;
 }
+
+
+
+/*Bookings */
+.booking-status {
+    font-size:1.2rem;
+    font-weight: 600;
+}
 </style>
 
 <body>
@@ -78,8 +86,8 @@ input, textarea {
             <img class="menu" src="../images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="../images/png/logo.png" class="logo">
-            <div class="title">Urban Services</div>
+            <img src="../images/png/logo.jpeg" class="logo" />
+            <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
@@ -115,26 +123,7 @@ input, textarea {
                 <h2>My bookings</h2>
             </div>
             <div class="bookings-results" id="bookings-results">
-
-                <!-- <div class="booking-result">
-                    <div class="service-image">
-                        <img src="../images/wallpaper-7415571_1280.jpg" alt="">
-                    </div>
-                    <div class="service-info">
-                        <h3 class="title">ABC Plumbers</h3>
-                        <div class="description">
-                            <p class="booking-id">Booking ID: order3002183271</p>
-                            <p class="booked-on">Booked on: 23/11/2023 10:34</p>
-                            <p class="time-slot">Time slot: 29/11/2023 9:00-12:00</p>
-                            <p class="booked-service">Service: Plumbing</p>
-                            <p class="booked-location">Location: Bangalore</p>
-                            <p class="booking-status" style="color:green;font-size:1.2rem;">Approved</p>
-                        </div>
-                         
-                        <button class="cancelnow">Cancel</button> 
-                    </div>
-                    
-                </div> -->
+                <!-- fetched results will be shown here-->
             </div>
     </div>   
 
@@ -166,7 +155,7 @@ input, textarea {
                     } else if (booking.status === 'Pending') {
                         statusColor = 'orange';
                     } else if (booking.status === 'Completed') {
-                        statusColor = 'green';
+                        statusColor = '#33b249';
                     } else {
                         statusColor = 'blue';
                     }  
@@ -185,7 +174,7 @@ input, textarea {
                             <p class="booked-service">Service: ${booking.serviceTypeName}</p>
                             <p class="time-slot">Time Slot: ${booking.preferredDate} - ${booking.preferredTimeSlotStart} to ${booking.preferredTimeSlotEnd}</p>
                             <p class="booked-location">City: ${booking.cityName}</p>
-                            <p class="booking-status" style="color:${statusColor};font-size:1.2rem;">${booking.status}</p>
+                            <p class="booking-status" style="color:${statusColor};">${booking.status}</p>
                         </div>
                         ${booking.status !== 'Pending' ? 
                         (() => {
