@@ -14,8 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['serviceProviderID'])
         WHERE serviceProviderID = '$serviceProviderID' AND B.customerID = A.customerID 
         AND B.cityID = C.cityID AND B.serviceTypeID = S.serviceTypeID
         ");
-//select * from serviceemployees E , servicetypes T where serviceProviderID = 'sprv000000000000001' and T.serviceTypeID=E.serviceTypeID;
-
 
 
     // $rows = $result->fetch_all(MYSQLI_ASSOC);
