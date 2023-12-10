@@ -2,22 +2,9 @@
 require "../vendor/autoload.php";
 include "./includes/mail-credentials.php";
 
-//create your mail-credentials.php file in serviceprovider/includes folder, containing your sender email credentials.
-//and then include it as shown above.
-
-/* ----- mail-credentials.php contents----
-<?php
-$smtpServer = ''; //smtp server (for example: smtp.gmail.com)
-$senderEmail = ''; //sender (your) email
-$password = ''; //your password
-$senderName ='Urban Services'; 
-
-?>
-*/
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 
 
 //for development, set this to true.
@@ -28,13 +15,13 @@ try {
     $mailer->SMTPDebug = 2;
     $mailer->isSMTP();
     if ($developmentMode) {
-    $mailer->SMTPOptions = [
-        'ssl'=> [
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-        ]
-    ];
+        $mailer->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
     }
     $mailer->Host = $smtpServer; //smtp server (for example: smtp.gmail.com)
     $mailer->SMTPAuth = true;
@@ -43,7 +30,7 @@ try {
     $mailer->SMTPSecure = 'tls';
     $mailer->Port = 587;
     $mailer->setFrom($senderEmail, 'Urban Services');
-    $mailer->addAddress('jaxem21979@lanxi8.com', $customerName); //replace this temp email will $customerEmail
+    $mailer->addAddress($customerEmail, $customerName);
     $mailer->isHTML(true);
     $mailer->Subject = 'Urban Services - Booking confirmation';
     $mailer->addStringAttachment(base64_decode($profileIMGData), 'profile.jpg', 'base64', 'image/jpeg');
@@ -77,7 +64,3 @@ try {
 } catch (Exception $e) {
     echo "EMAIL SENDING FAILED. INFO: " . $mailer->ErrorInfo;
 }
-
-?>
-
-
