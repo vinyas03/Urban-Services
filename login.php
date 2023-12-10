@@ -1,19 +1,19 @@
-<?php 
+<?php
 session_start();
 include_once("db_connect.php");
 
-if(isset($_SESSION['userID']) && isset($_SESSION['customerID']))  {
+if (isset($_SESSION['userID']) && isset($_SESSION['customerID'])) {
     header("Location: customer/index.php");
 }
-if(isset($_SESSION['userID']) && isset($_SESSION['serviceProviderID']))  {
+if (isset($_SESSION['userID']) && isset($_SESSION['serviceProviderID'])) {
     header("Location: serviceprovider/index.php");
 }
 
 $error = false;
 
 if (isset($_POST['submit'])) {
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$password = $_POST['password'];
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password'];
 
 
     //Google recaptcha v2
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
     if (!$error) {
         $stmt = $conn->prepare("SELECT * FROM accounts WHERE email = ?"); //as Email is set to UNIQUE
         // Bind the email as a parameter
-        $stmt->bind_param("s",$email);
+        $stmt->bind_param("s", $email);
         // Execute the statement
         $stmt->execute();
         // Get the result set
@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
 
         //if 1 row is found (since email is unique) and then verify password
         if ($user && password_verify($password, $user['password'])) {
-            if($user['role'] == 'Customer') {
+            if ($user['role'] == 'Customer') {
                 $result = $conn->query("
                 SELECT * FROM accounts, customers
                 WHERE accounts.userID = customers.userID AND accounts.email = '$email' 
@@ -73,9 +73,8 @@ if (isset($_POST['submit'])) {
                 $_SESSION['customerName'] = $row['customerName'];
 
                 header('Location: customer/index.php');
-
             }
-            if($user['role'] == 'ServiceProvider') {
+            if ($user['role'] == 'ServiceProvider') {
                 $result = $conn->query("
                 SELECT * FROM accounts, serviceproviders
                 WHERE accounts.userID = serviceproviders.userID AND accounts.email = '$email' 
@@ -87,15 +86,12 @@ if (isset($_POST['submit'])) {
                 $_SESSION['companyName'] = $row['companyName'];
 
                 header('Location: serviceprovider/index.php');
-
             }
-	
         } else {
             $error = true;
             $loginerror = "Incorrect Email or Password!!!";
         }
     }
-
 }
 
 ?>
@@ -103,6 +99,7 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,7 +112,8 @@ if (isset($_POST['submit'])) {
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Urban Services - Login</title>
 </head>
-<body> 
+
+<body>
     <header>
         <div class="toggleBtn">
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
@@ -127,7 +125,7 @@ if (isset($_POST['submit'])) {
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Register a service</a></li>
+            <li><a href="./registerservice.php">Register a service</a></li>
         </ul>
         <div class="nav-buttons">
             <!-- <a href="./login.html" class="loginBtn">Login</a> -->
@@ -135,46 +133,47 @@ if (isset($_POST['submit'])) {
         </div>
     </header>
 
-    <form class="loginForm" name="loginForm" onsubmit="return validateForm()" action="./login.php" method="POST"> 
+    <form class="loginForm" name="loginForm" onsubmit="return validateForm()" action="./login.php" method="POST">
         <div class="header">
             <?php if (isset($loginerror)) { ?>
                 <p style="color:crimson;"><?php echo $loginerror; ?></p>
-            <?php }?>
-            <h1> Login </h1>   
+            <?php } ?>
+            <h1> Login </h1>
         </div>
-       <div class="container">   
-           <label>Email : </label>   
-           <input type="text" placeholder="Enter your Email" name="email" required>  
-       </div>
-       <div class="container">
-           <label>Password : </label>   
-           <input type="password" placeholder="Enter Password" name="password" required>
+        <div class="container">
+            <label>Email : </label>
+            <input type="text" placeholder="Enter your Email" name="email" required>
+        </div>
+        <div class="container">
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" name="password" required>
         </div>
 
         <div class="captcha-box">
             <div class="g-recaptcha" data-sitekey="6LcV79QoAAAAAF9vV56fVudfAFfLdNcNK0jyyx2-"></div>
         </div>
-        
+
 
         <div>
-           <button type="submit" value="submit" name="submit">Login</button> 
-        </div>  
+            <button type="submit" value="submit" name="submit">Login</button>
+        </div>
         <!--   <input type="checkbox" checked="checked"> Remember me  
            <br> 
-         <button type="button" class="cancelbtn"> Cancel</button> -->   
+         <button type="button" class="cancelbtn"> Cancel</button> -->
         <div class="form-footer">
-           <div class="forgot-password">
+            <div class="forgot-password">
                 <p>Forgot<a href="./forgotpassword.php"> password? </a></p>
-           </div>
+            </div>
             <div class="register-here">
                 <p class="register-link">Don't have an account? <a href="./signup.php">Register</a> Here</p>
-            </div>   
-        </div>   
+            </div>
+        </div>
 
-       </div>   
+        </div>
     </form>
 
     <script src="./scripts/script.js"></script>
     <script src="./scripts/loginvalidate.js"></script>
 </body>
+
 </html>
