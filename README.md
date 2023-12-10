@@ -57,7 +57,7 @@ Urban Services aims to simplify the process of finding and booking services by c
 
 7. The project should run as expected in the local dev server
 
-####PHPMailer usage
+#### PHPMailer usage
 Email features are used in the application to send confirmation emails to the customer by the service provider.
 
 1. In the `serviceprovider/includes` folder, create a new file called `mail-credentials.php`
