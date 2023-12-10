@@ -24,7 +24,7 @@ include_once("db_connect.php");
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="./images/png/logo.jpeg" class="logo" />
+            <img src="./images/png/logo.png" class="logo" />
             <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">

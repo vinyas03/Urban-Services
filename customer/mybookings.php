@@ -27,7 +27,7 @@ include_once("./includes/fetchProfileIMG.php");
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />    
-    <title>Urban Services - Home</title>
+    <title>My Bookings</title>
 </head>
 
 <style>
@@ -86,7 +86,7 @@ input, textarea {
             <img class="menu" src="../images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="../images/png/logo.jpeg" class="logo" />
+            <img src="../images/png/logo.png" class="logo" />
             <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">

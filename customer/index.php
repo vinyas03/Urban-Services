@@ -53,6 +53,7 @@ include_once("./includes/fetchProfileIMG.php");
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
     />
+    <title>Customer - Home</title>
   </head>
 
   <style>
@@ -215,7 +216,7 @@ include_once("./includes/fetchProfileIMG.php");
         />
       </div>
       <div class="logo-wrapper">
-        <img src="../images/png/logo.jpeg" class="logo" />
+        <img src="../images/png/logo.png" class="logo" />
         <!-- <div class="title">Urban Services</div> -->
       </div>
       <ul class="nav-items">

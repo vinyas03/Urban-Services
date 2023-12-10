@@ -208,13 +208,13 @@
             <img class="menu" src="./images/svg/burger-menu-left.svg" width="40px" height="40px">
         </div>
         <div class="logo-wrapper">
-            <img src="./images/png/logo.jpeg" class="logo" />
+            <img src="./images/png/logo.png" class="logo" />
             <!-- <div class="title">Urban Services</div> -->
         </div>
         <ul class="nav-items">
             <li><a href="./index.php">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="./registerservice.php">Register a service</a></li>
+            <li><a href="./registerservice.php">Urban Services - Register as a Customer</a></li>
         </ul>
         <div class="nav-buttons">
             <a href="./login.php" class="loginBtn">Login</a>
