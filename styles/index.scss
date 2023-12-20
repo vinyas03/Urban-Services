@@ -363,3 +363,12 @@ body {
     }
   }
 }
+
+#spinner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 300px);
+  padding: 30px;
+}

@@ -6,8 +6,7 @@ header {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  -webkit-backdrop-filter: blur(30px);
-          backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
   background-color: rgba(255, 255, 255, 0.3);
 }
 @media screen and (max-width: 992px) {
@@ -139,8 +138,7 @@ header .nav-buttons .signupBtn {
   height: 100%;
   transition: all 0.5s ease;
   background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .nav-buttons.active {
@@ -161,8 +159,7 @@ header .nav-buttons .profileImg {
 header .nav-buttons .profileImg img {
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 * {
@@ -227,7 +224,6 @@ body {
   position: absolute;
   right: 80px;
   top: 80px;
-  max-width: -moz-max-content;
   max-width: max-content;
   background: whitesmoke;
   padding: 12px;
@@ -349,21 +345,18 @@ body {
   padding: 6px;
   display: grid;
   grid-template-columns: 1fr 2.5fr;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
+  column-gap: 10px;
 }
 @media screen and (max-width: 992px) {
   .search-container .search-results .search-result {
     grid-template-columns: 1fr 1.5fr;
-    -moz-column-gap: 8px;
-         column-gap: 8px;
+    column-gap: 8px;
   }
 }
 @media screen and (max-width: 576px) {
   .search-container .search-results .search-result {
     grid-template-columns: 1fr;
-    -moz-column-gap: 0px;
-         column-gap: 0px;
+    column-gap: 0px;
   }
 }
 .search-container .search-results .search-result .service-image img {
@@ -431,21 +424,18 @@ body {
   padding: 6px;
   display: grid;
   grid-template-columns: 1fr 2.5fr;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
+  column-gap: 10px;
 }
 @media screen and (max-width: 992px) {
   .bookings-container .bookings-results .booking-result {
     grid-template-columns: 1fr 1.5fr;
-    -moz-column-gap: 8px;
-         column-gap: 8px;
+    column-gap: 8px;
   }
 }
 @media screen and (max-width: 576px) {
   .bookings-container .bookings-results .booking-result {
     grid-template-columns: 1fr;
-    -moz-column-gap: 0px;
-         column-gap: 0px;
+    column-gap: 0px;
   }
 }
 .bookings-container .bookings-results .booking-result .service-image img {
@@ -496,4 +486,13 @@ body {
 }
 .bookings-container .bookings-results .booking-result .description .booking-status {
   font-size: 1.35rem;
-}/*# sourceMappingURL=index.css.map */
+}
+
+#spinner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 300px);
+  padding: 30px;
+}
