@@ -30,6 +30,8 @@ Urban Services aims to simplify the process of finding and booking services by c
 ![Search services](https://github.com/user-attachments/assets/fb17913a-c577-4354-9d8a-619fa8292006)
 ![Customer profile](https://github.com/user-attachments/assets/4a8122a5-5985-441b-a34d-e1e0446ed582)
 ![service provider profile](https://github.com/user-attachments/assets/51f46d11-98c3-4a9c-a770-5763403cce2b)
+![service provider dashboard](https://github.com/user-attachments/assets/24950a92-0836-4783-88a1-6021b59dbe48)
+
 ![Feedback](https://github.com/user-attachments/assets/77b01581-9c43-42b0-a39f-c0075ab3ea04)
 
 
