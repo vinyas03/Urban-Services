@@ -6,6 +6,7 @@ Urban Services is a web-based platform that facilitates seamless interactions be
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Technology Stack](#technology-stack)
 - [Setup Guide](#setup-guide)
 - [Contributing](#contributing)
@@ -23,6 +24,9 @@ Urban Services aims to simplify the process of finding and booking services by c
 - Real-time notifications for service updates.
 - Robust feedback system for customers.
 - Responsive and intuitive design.
+
+## Screenshots
+
 
 ## Technology stack
 
