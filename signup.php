@@ -109,14 +109,10 @@ if (isset($_POST['submit'])) {
         $total_users = $row['total_users'];
         $total_customers = $row['total_customers'];
 
-        //Generate 20 character userID
-        $length = strlen("$total_users");
-        $userID = "user" . str_repeat('0', 16 - $length) . ($total_users + 1);
-
-        //Generate 20 character customerID
-        $length = strlen("$total_customers");
-        $customerID = "cust" . str_repeat('0', 16 - $length) . ($total_customers + 1);
-
+        // Generate 20 character userID
+        $userID = sprintf("user%016d", $total_users + 1);
+        // Generate 20 character customerID
+        $customerID = sprintf("cust%016d", $total_customers + 1);
         //echo "<script>alert('$customerID');</script>";
 
         $role = "Customer"; //role is enum and can be one of "Customer" or "ServiceProvider"
@@ -165,7 +161,7 @@ if (isset($_POST['submit'])) {
             }
         } catch (mysqli_sql_exception $e) {
             $error = true;
-            $registrationerror = "Error in registration : Check if credentials already used before" . $e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
+            $registrationerror = "Error in registration : " . $e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
             //echo $conn->error; // Duplicate entry 'spiderman@gmail.com' for key 'Email'
         }
     }

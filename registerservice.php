@@ -120,13 +120,11 @@
             $total_users = $row['total_users'];
             $total_serviceProviders = $row['total_serviceProviders'];
 
-            //Generate 20 character userID
-            $length = strlen("$total_users");
-            $userID = "user".str_repeat('0', 16 - $length).($total_users + 1);
+            // Generate 20 character userID
+            $userID = sprintf("user%016d", $total_users + 1);
 
-            //Generate 20 character serviceProviderID
-            $length = strlen("$total_serviceProviders");
-            $serviceProviderID = "sprv".str_repeat('0', 16 - $length).($total_serviceProviders + 1);
+            // Generate 20 character serviceProviderID
+            $serviceProviderID = sprintf("sprv%016d", $total_serviceProviders + 1);
 
             $role = "ServiceProvider"; //role is enum and can be one of "Customer" or "ServiceProvider"
 
@@ -226,7 +224,7 @@
                 }
             } catch (mysqli_sql_exception $e) {
                 $error = true;
-                $registrationerror = "Error in registration :  Check if credentials already used before- ".$e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
+                $registrationerror = "Error in registration : ".$e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
                 //echo $conn->error; // Duplicate entry 'spiderman@gmail.com' for key 'Email'
             }             
         } 
