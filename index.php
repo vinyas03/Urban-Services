@@ -1,6 +1,28 @@
 <?php 
 session_start();
 include_once("db_connect.php");
+
+//fetch landing stats
+$result = $conn->query(
+    "SELECT 
+        SUM(total_users) AS total_users, 
+        SUM(total_customers) AS total_customers, 
+        SUM(total_serviceProviders) AS total_serviceProviders, 
+        SUM(total_bookings) AS total_bookings,
+        SUM(total_employees) AS total_employees
+    FROM totalaccounts FOR UPDATE"
+);
+
+$total_users = $total_customers = $total_serviceProviders = $total_bookings = $total_employees = 0;
+
+if ($result) {
+    $stats = $result->fetch_assoc();
+    $total_users = $stats['total_users'] ?? 0;
+    $total_customers = $stats['total_customers'] ?? 0;
+    $total_serviceProviders = $stats['total_serviceProviders'] ?? 0;
+    $total_bookings = $stats['total_bookings'] ?? 0;
+    $total_employees = $stats['total_employees'] ?? 0;
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,9 +87,23 @@ include_once("db_connect.php");
         <div class="hero-text">
             <h2 class="hero-title" data-aos="fade-right" data-aos-duration="1000"
     data-aos-easing="ease-in-out">Hire Experts & Get Your Job Done</h2>
-            <p class="hero-info">
-                
-            </p>
+            <div class="hero-info">
+                <p>
+                 Our platform connects you with verified professionals who are ready to assist you with their expertise.
+                Join our growing community today!
+                </p>
+                <ul style="list-style:none;padding:0;margin:0;display:flex;gap:18px;flex-wrap:wrap;">
+                    <?php if ($total_customers > 0): ?>
+                        <li>👥 <strong><?php echo number_format($total_customers); ?></strong> Customers</li>
+                    <?php endif; ?>
+                    <?php if ($total_serviceProviders > 0): ?>
+                        <li>🛠️ <strong><?php echo number_format($total_serviceProviders); ?></strong> Service Providers</li>
+                    <?php endif; ?>
+                    <?php if ($total_bookings > 0): ?>
+                        <li>📅 <strong><?php echo number_format($total_bookings); ?></strong> Bookings served</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
         <div class="hero-image">
             <img src="./images/png/man.png" alt="hero image" data-aos="fade-left" data-aos-duration="1000"
