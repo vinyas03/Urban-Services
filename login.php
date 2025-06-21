@@ -72,7 +72,20 @@ if (isset($_POST['submit'])) {
                 $_SESSION['customerID'] = $row['customerID'];
                 $_SESSION['customerName'] = $row['customerName'];
 
+                // Log successful login
+                $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                error_log(
+                    "[LOGIN SUCCESS] " . date('Y-m-d H:i:s') . " | " .
+                    "UserID: " . $user['userID'] . " | " .
+                    "CustomerID: " . $row['customerID'] . " | " .
+                    "Email: " . $email . " | " .
+                    "Role: " . $user['role'] . "\n",
+                    3,
+                    $logFile
+                );
+
                 header('Location: customer/index.php');
+                exit;
             }
             if ($user['role'] == 'ServiceProvider') {
                 $result = $conn->query("
@@ -84,12 +97,33 @@ if (isset($_POST['submit'])) {
                 $_SESSION['userID'] = $row['userID'];
                 $_SESSION['serviceProviderID'] = $row['serviceProviderID'];
                 $_SESSION['companyName'] = $row['companyName'];
-
+                // Log successful login
+                $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                error_log(
+                    "[LOGIN SUCCESS] " . date('Y-m-d H:i:s') . " | " .
+                    "UserID: " . $user['userID'] . " | " .
+                    "ServiceProviderID: " . $row['serviceProviderID'] . " | " .
+                    "Email: " . $email . " | " .
+                    "Role: " . $user['role'] . "\n",
+                    3,
+                    $logFile
+                );
                 header('Location: serviceprovider/index.php');
+                exit;
             }
         } else {
             $error = true;
             $loginerror = "Incorrect Email or Password!!!";
+            
+            // Log failed login
+            $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+            error_log(
+                "[LOGIN FAIL] " . date('Y-m-d H:i:s') . " | " .
+                "Email: " . $email . " | " .
+                "Reason: Incorrect Email or Password\n",
+                3,
+                $logFile
+            );
         }
     }
 }

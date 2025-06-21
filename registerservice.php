@@ -162,7 +162,6 @@
                     }
                     //Insert the single city into serviceprovidercities                    
                     $insertquery4 = "INSERT INTO serviceprovidercities (serviceProviderID, cityID) VALUES (?, ?)";
-
                     $stmt4 = $conn->prepare($insertquery4);
                     $stmt4->bind_param("si",$serviceProviderID, $cityID);
                     $stmt4->execute();
@@ -174,6 +173,19 @@
                     if ($updateResult) {
                         // Commit transaction
                         $conn->commit();
+
+                        //success log
+                        $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                        error_log(
+                            "[REGISTER SERVICE SUCCESS] " . date('Y-m-d H:i:s') . " | " .
+                            "UserID: " . $userID . " | " .
+                            "ServiceProviderID: " . $serviceProviderID . " | " .
+                            "CompanyName: " . $name . " | " .
+                            "Email: " . $email . "\n",
+                            3,
+                            $logFile
+                        );
+
                         echo "<script>alert('Registered successfully !');</script>";
                         session_unset();
                         $_SESSION['userID'] = $userID;
@@ -185,16 +197,50 @@
                         $conn->rollback();
                         $error = true;
                         $registrationerror = "Failed to register service provider";
+
+                        //Log the error
+                        $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                        error_log(
+                            "[REGISTER SERVICE FAIL] " . date('Y-m-d H:i:s') . " | " .
+                            "Message: Failed to update totalaccounts table | " .
+                            "UserID: " . $userID . " | " .
+                            "ServiceProviderID: " . $serviceProviderID . "\n",
+                            3,
+                            $logFile
+                        );
                     }
                 } else {
                     $conn->rollback();
                     $error = true;
                     $registrationerror = "Failed to register service provider";
+
+                    //Log the error
+                    $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                    error_log(
+                        "[REGISTER SERVICE FAIL] " . date('Y-m-d H:i:s') . " | " .
+                        "Message: Failed to insert into accounts or serviceproviders table | " .
+                        "UserID: " . $userID . " | " .
+                        "ServiceProviderID: " . $serviceProviderID . "\n",
+                        3,
+                        $logFile
+                    );
                 }
             } catch (mysqli_sql_exception $e) {
                 $conn->rollback();
                 $error = true;
                 $registrationerror = "Failed to register service provider";
+                
+                //Log the error
+                $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                error_log(
+                    "[REGISTER SERVICE ERROR] " . date('Y-m-d H:i:s') . " | " .
+                    "Message: " . $e->getMessage() . " | " .
+                    "File: " . $e->getFile() . " | " .
+                    "Line: " . $e->getLine() . " | " .
+                    "Trace: " . $e->getTraceAsString() . "\n",
+                    3,
+                    $logFile
+                );
             }             
         } 
     }   
