@@ -44,6 +44,10 @@ Urban Services aims to simplify the process of finding and booking services by c
 - jQuery
 - MySQL
 
+## Database
+![urban-services-database](https://github.com/user-attachments/assets/a2ed5066-89ab-4a5f-ac99-ca7356a52017)
+
+
 ## Setup guide
 
 1. Clone the repository into any folder inside xampp/htdocs
