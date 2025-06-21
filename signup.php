@@ -100,69 +100,85 @@ if (isset($_POST['submit'])) {
     if (!$error) {
         $hashed_password = password_hash($password1, PASSWORD_DEFAULT);
 
-        //find total accounts in the database
-        $result = $conn->query(
-            "SELECT SUM(total_users) AS total_users, SUM(total_customers) AS total_customers 
-                FROM totalaccounts"
-        );
-        $row = $result->fetch_assoc();
-        $total_users = $row['total_users'];
-        $total_customers = $row['total_customers'];
-
-        // Generate 20 character userID
-        $userID = sprintf("user%016d", $total_users + 1);
-        // Generate 20 character customerID
-        $customerID = sprintf("cust%016d", $total_customers + 1);
-        //echo "<script>alert('$customerID');</script>";
-
-        $role = "Customer"; //role is enum and can be one of "Customer" or "ServiceProvider"
-
-        $insertquery1 = "INSERT INTO accounts (userID, email, password, role, securityQuestion, securityAnswer) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt1 = $conn->prepare($insertquery1);
-        $stmt1->bind_param("ssssss", $userID, $email, $hashed_password, $role, $securityQuestion, $securityAnswer);
-
-        //fetch the cityID 
-        $result = $conn->query(
-            "SELECT cityID FROM cities
-                WHERE cityName='$location'
-                "
-        );
-        $row = $result->fetch_assoc();
-        $cityID = $row['cityID'];
-
-        $insertquery2 = "INSERT INTO customers (customerID, userID, customerName, phone, gender, cityID) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt2 = $conn->prepare($insertquery2);
-        $stmt2->bind_param("sssssi", $customerID, $userID, $name, $phone, $gender, $cityID);
-
-
         try {
+            // Start transaction
+            $conn->begin_transaction();
+
+            // Lock the totalaccounts row for update to prevent race conditions
+            //FOR UPDATE will lock the row until the transaction is committed
+            //no other transaction can read or modify these rows until your transaction is finished (committed or rolled back).
+            //this ensures that the total_users and total_customers counts are accurate for every new user registration
+            $result = $conn->query(
+                "SELECT SUM(total_users) AS total_users, SUM(total_customers) AS total_customers FROM totalaccounts FOR UPDATE"
+            );
+            $row = $result->fetch_assoc();
+            $total_users = $row['total_users'];
+            $total_customers = $row['total_customers'];
+
+            // Generate 20 character userID
+            $userID = sprintf("user%016d", $total_users + 1);
+            // Generate 20 character customerID
+            $customerID = sprintf("cust%016d", $total_customers + 1);
+            //echo "<script>alert('$customerID');</script>";
+
+            $role = "Customer"; //role is enum and can be one of "Customer" or "ServiceProvider"
+
+            $insertquery1 = "INSERT INTO accounts (userID, email, password, role, securityQuestion, securityAnswer) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt1 = $conn->prepare($insertquery1);
+            $stmt1->bind_param("ssssss", $userID, $email, $hashed_password, $role, $securityQuestion, $securityAnswer);
+
+            //fetch the cityID 
+            $result = $conn->query(
+                "SELECT cityID FROM cities WHERE cityName='$location'"
+            );
+            $row = $result->fetch_assoc();
+            $cityID = $row['cityID'];
+
+            $insertquery2 = "INSERT INTO customers (customerID, userID, customerName, phone, gender, cityID) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt2 = $conn->prepare($insertquery2);
+            $stmt2->bind_param("sssssi", $customerID, $userID, $name, $phone, $gender, $cityID);
+
             if ($stmt1->execute() && $stmt2->execute()) {
-
                 //increase user count
-                $conn->query(
-                    "UPDATE totalaccounts SET total_users = total_users+1 , total_customers = total_customers+1
-                        "
+                $updateResult = $conn->query(
+                    "UPDATE totalaccounts SET total_users = total_users+1 , total_customers = total_customers+1"
                 );
+                if ($updateResult) {
+                    // Commit transaction
+                    $conn->commit();
 
-                //redirect to customer home page or login page
-                echo "<script>alert('Registered successfully !</script>";
+                    //redirect to customer home page or login page
+                    echo "<script>alert('Registered successfully!');</script>";
 
-                //destroy older session
-                //session_destroy();
-                session_unset();
+                    //destroy older session
+                    //session_destroy();
+                    session_unset();
 
-                $_SESSION['userID'] = $userID;
-                $_SESSION['customerID'] = $customerID;
-                $_SESSION['customerName'] = $name;
-                //stm1->close();
-                //stm2->close();
+                    $_SESSION['userID'] = $userID;
+                    $_SESSION['customerID'] = $customerID;
+                    $_SESSION['customerName'] = $name;
+                    $stmt1->close();
+                    $stmt2->close();
 
-                header('Location: customer/index.php');
+                    header('Location: customer/index.php');
+                    exit(); //to stop further script execution after redirect
+                } else {
+                    $conn->rollback();
+                    $error = true;
+                    $registrationerror = "Failed to sign up";
+
+                }
+            } else {
+                $conn->rollback();
+                $error = true;
+               $registrationerror = "Failed to sign up";
+
             }
         } catch (mysqli_sql_exception $e) {
+            $conn->rollback();
             $error = true;
-            $registrationerror = "Error in registration : " . $e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
-            //echo $conn->error; // Duplicate entry 'spiderman@gmail.com' for key 'Email'
+            $registrationerror = "Failed to sign up";
+           
         }
     }
 }
