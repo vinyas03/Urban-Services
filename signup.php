@@ -160,18 +160,52 @@ if (isset($_POST['submit'])) {
                     $stmt1->close();
                     $stmt2->close();
 
+                    //success log
+                    $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                    error_log(
+                        "[SIGNUP SUCCESS] " . date('Y-m-d H:i:s') . " | " .
+                        "UserID: " . $userID . " | " .
+                        "CustomerID: " . $customerID . " | " .
+                        "Name: " . $name . " | " .
+                        "Email: " . $email . "\n",
+                        3,
+                        $logFile
+                    );
+
                     header('Location: customer/index.php');
                     exit(); //to stop further script execution after redirect
                 } else {
                     $conn->rollback();
                     $error = true;
                     $registrationerror = "Failed to sign up";
-
+                    
+                    //Log the error 
+                    $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                    error_log(
+                        "[SIGNUP FAIL] " . date('Y-m-d H:i:s') . " | " .
+                        "Message: Failed to update `total accounts` table| " .
+                        "UserID: " . $userID . " | " .
+                        "CustomerID: " . $customerID . "\n",
+                        3,
+                        $logFile
+                    );
                 }
             } else {
                 $conn->rollback();
                 $error = true;
-               $registrationerror = "Failed to sign up";
+                $registrationerror = "Failed to sign up";
+                
+                
+                //Log the error
+                $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+                error_log(
+                    "[SIGNUP FAIL] " . date('Y-m-d H:i:s') . " | " .
+                    "Message: Failed to insert new customer into `accounts` or `customers` table| " .
+                    "UserID: " . $userID . " | " .
+                    "CustomerID: " . $customerID . "\n",
+                    3,
+                    $logFile
+                );
 
             }
         } catch (mysqli_sql_exception $e) {
@@ -179,6 +213,17 @@ if (isset($_POST['submit'])) {
             $error = true;
             $registrationerror = "Failed to sign up";
            
+            // Log the error
+            $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
+            error_log(
+                "[SIGNUP ERROR] " . date('Y-m-d H:i:s') . " | " .
+                "Message: " . $e->getMessage() . " | " .
+                "File: " . $e->getFile() . " | " .
+                "Line: " . $e->getLine() . " | " .
+                "Trace: " . $e->getTraceAsString() . "\n",
+                3,
+                $logFile
+            );
         }
     }
 }
