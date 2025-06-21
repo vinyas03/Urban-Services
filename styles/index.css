@@ -137,7 +137,11 @@ header .nav-buttons .signupBtn {
 .nav-items.active {
   height: 100%;
   transition: all 0.5s ease;
-  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
+  background: linear-gradient(
+    109.5deg,
+    rgb(76, 221, 242) 11.2%,
+    rgb(92, 121, 255) 91.1%
+  );
   backdrop-filter: blur(8px);
 }
 
@@ -170,7 +174,11 @@ header .nav-buttons .profileImg img {
 }
 
 body {
-  background: linear-gradient(109.5deg, rgb(76, 221, 242) 11.2%, rgb(92, 121, 255) 91.1%);
+  background: linear-gradient(
+    109.5deg,
+    rgb(76, 221, 242) 11.2%,
+    rgb(92, 121, 255) 91.1%
+  );
   width: 100%;
   min-height: 100vh;
 }
@@ -204,7 +212,7 @@ body {
   margin-bottom: 30px;
 }
 .hero-container .hero-text .hero-info {
-  color: #4e6ef1;
+  color: #22053e;
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
@@ -460,11 +468,20 @@ body {
   background: #f01e1e;
   color: #fbfcf8;
 }
-.bookings-container .bookings-results .booking-result .service-info .cancelnow a {
+.bookings-container
+  .bookings-results
+  .booking-result
+  .service-info
+  .cancelnow
+  a {
   text-decoration: none;
   color: #fbfcf8;
 }
-.bookings-container .bookings-results .booking-result .service-info .give-feedback {
+.bookings-container
+  .bookings-results
+  .booking-result
+  .service-info
+  .give-feedback {
   padding: 3px;
   background: tomato;
   color: #f4f4f4;
@@ -484,7 +501,11 @@ body {
 .bookings-container .bookings-results .booking-result .cancelnow {
   text-decoration: none;
 }
-.bookings-container .bookings-results .booking-result .description .booking-status {
+.bookings-container
+  .bookings-results
+  .booking-result
+  .description
+  .booking-status {
   font-size: 1.35rem;
 }
 
