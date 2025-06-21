@@ -202,7 +202,7 @@
                         $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
                         error_log(
                             "[REGISTER SERVICE FAIL] " . date('Y-m-d H:i:s') . " | " .
-                            "Message: Failed to update totalaccounts table | " .
+                            "Message: Failed to update `totalaccounts` table | " .
                             "UserID: " . $userID . " | " .
                             "ServiceProviderID: " . $serviceProviderID . "\n",
                             3,
@@ -218,7 +218,7 @@
                     $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
                     error_log(
                         "[REGISTER SERVICE FAIL] " . date('Y-m-d H:i:s') . " | " .
-                        "Message: Failed to insert into accounts or serviceproviders table | " .
+                        "Message: Failed to insert into `accounts` or `serviceproviders` table | " .
                         "UserID: " . $userID . " | " .
                         "ServiceProviderID: " . $serviceProviderID . "\n",
                         3,
@@ -229,7 +229,7 @@
                 $conn->rollback();
                 $error = true;
                 $registrationerror = "Failed to register service provider";
-                
+
                 //Log the error
                 $logFile = __DIR__ . '/logs_' . date('Y-m-d') . '.txt';
                 error_log(
