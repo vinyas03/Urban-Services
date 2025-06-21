@@ -111,121 +111,90 @@
         if (!$error) {
             $hashed_password = password_hash($password1, PASSWORD_DEFAULT);
 
-            //find total accounts in the database
-            $result = $conn->query(
-                "SELECT SUM(total_users) AS total_users, SUM(total_serviceProviders) AS total_serviceProviders 
-                FROM totalaccounts"
-            );
-            $row = $result->fetch_assoc();
-            $total_users = $row['total_users'];
-            $total_serviceProviders = $row['total_serviceProviders'];
-
-            // Generate 20 character userID
-            $userID = sprintf("user%016d", $total_users + 1);
-
-            // Generate 20 character serviceProviderID
-            $serviceProviderID = sprintf("sprv%016d", $total_serviceProviders + 1);
-
-            $role = "ServiceProvider"; //role is enum and can be one of "Customer" or "ServiceProvider"
-
-
-            $insertquery1 = "INSERT INTO accounts (userID, email, password, role, securityQuestion, securityAnswer) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt1 = $conn->prepare($insertquery1);
-            $stmt1->bind_param("ssssss", $userID, $email, $hashed_password, $role, $securityQuestion, $securityAnswer);
-            
-            //fetch the cityID 
-            $result = $conn->query(
-                "SELECT cityID FROM cities
-                WHERE cityName='$location'
-                "
-            );
-            $row = $result->fetch_assoc();
-            $cityID = $row['cityID'];            
-
-            $insertquery2 = "INSERT INTO serviceproviders (serviceProviderID, userID, companyName, phone, cityID) VALUES (?, ?, ?, ?, ?)";
-            $stmt2 = $conn->prepare($insertquery2);
-            $stmt2->bind_param("ssssi",$serviceProviderID, $userID, $name, $phone, $cityID);
-
-
             try {
-                if($stmt1->execute() && $stmt2->execute()) {
+                // Start transaction
+                $conn->begin_transaction();
 
+                 // Lock the totalaccounts row for update to prevent race conditions
+                //FOR UPDATE will lock the row until the transaction is committed
+                //no other transaction can read or modify these rows until your transaction is finished (committed or rolled back).
+                //this ensures that the total_users and total_customers counts are accurate for every new user registration
+                $result = $conn->query(
+                    "SELECT SUM(total_users) AS total_users, SUM(total_serviceProviders) AS total_serviceProviders FROM totalaccounts FOR UPDATE"
+                );
+                $row = $result->fetch_assoc();
+                $total_users = $row['total_users'];
+                $total_serviceProviders = $row['total_serviceProviders'];
+
+                // Generate 20 character userID
+                $userID = sprintf("user%016d", $total_users + 1);
+                // Generate 20 character serviceProviderID
+                $serviceProviderID = sprintf("sprv%016d", $total_serviceProviders + 1);
+
+                $role = "ServiceProvider"; //role is enum and can be one of "Customer" or "ServiceProvider"
+
+                $insertquery1 = "INSERT INTO accounts (userID, email, password, role, securityQuestion, securityAnswer) VALUES (?, ?, ?, ?, ?, ?)";
+                $stmt1 = $conn->prepare($insertquery1);
+                $stmt1->bind_param("ssssss", $userID, $email, $hashed_password, $role, $securityQuestion, $securityAnswer);
+                //fetch the cityID 
+                $result = $conn->query(
+                    "SELECT cityID FROM cities WHERE cityName='$location'"
+                );
+                $row = $result->fetch_assoc();
+                $cityID = $row['cityID'];
+
+                $insertquery2 = "INSERT INTO serviceproviders (serviceProviderID, userID, companyName, phone, cityID) VALUES (?, ?, ?, ?, ?)";
+                $stmt2 = $conn->prepare($insertquery2);
+                $stmt2->bind_param("ssssi",$serviceProviderID, $userID, $name, $phone, $cityID);
+
+                if($stmt1->execute() && $stmt2->execute()) {
                     //insert the service types
                     foreach ($serviceList as $index => $serviceType) {
-
-                        //fetch the serviceTypeID correcponding to the input serviceType
-                        //fetch the cityID 
                         $result = $conn->query(
-                            "SELECT serviceTypeID FROM servicetypes
-                            WHERE serviceTypeName ='$serviceType'
-                            "
+                            "SELECT serviceTypeID FROM servicetypes WHERE serviceTypeName ='$serviceType'"
                         );
                         $row = $result->fetch_assoc();
-                        $serviceTypeID = $row['serviceTypeID'];                
-
-
+                        $serviceTypeID = $row['serviceTypeID'];
                         $insertquery3 = "INSERT INTO serviceproviderservices (serviceProviderID, serviceTypeID) VALUES (?, ?)";
                         $stmt3 = $conn->prepare($insertquery3);
                         $stmt3->bind_param("si",$serviceProviderID, $serviceTypeID);
                         $stmt3->execute();
                     }
-
                     //Insert the single city into serviceprovidercities                    
                     $insertquery4 = "INSERT INTO serviceprovidercities (serviceProviderID, cityID) VALUES (?, ?)";
+
                     $stmt4 = $conn->prepare($insertquery4);
                     $stmt4->bind_param("si",$serviceProviderID, $cityID);
                     $stmt4->execute();
 
-
-                    //Feature: Multiple service cities ($serviceCities received via POST)
-                    //insert the serviceprovider cities
-                    // foreach ($serviceCities as $index => $serviceCity) {
-                    //     //fetch the cityID 
-                    //     $result = $conn->query(
-                    //     "SELECT cityID FROM cities
-                    //     WHERE cityName='$serviceCities'
-                    //     "
-                    //     );
-                    //     $row = $result->fetch_assoc();
-                    //     $cityID = $row['cityID'];
-
-                    //     $insertquery4 = "INSERT INTO serviceprovidercities (serviceProviderID, serviceTypeName) VALUES (?, ?)";
-                    //     $stmt4 = $conn->prepare($insertquery4);
-                    //     $stmt4->bind_param("ss",$serviceProviderID, $cityID);
-                    //     $stmt4->execute();
-                    // }
-
-                    
                     //increase user count
-                    $conn->query(
-                        "UPDATE totalaccounts SET
-                        total_users = total_users + 1,
-                        total_serviceProviders = total_serviceProviders + 1
-                        "
+                    $updateResult = $conn->query(
+                        "UPDATE totalaccounts SET total_users = total_users + 1, total_serviceProviders = total_serviceProviders + 1"
                     );
-
-                    //redirect to service provider home page or login page
-                    echo "<script>alert('Registered successfully !</script>";
-
-                    //destroy older session
-                    //session_destroy();
-                    session_unset();
-
-                    $_SESSION['userID'] = $userID;
-                    $_SESSION['serviceProviderID'] = $serviceProviderID;
-                    $_SESSION['companyName'] = $name;
-                    //$stm1->close();
-                    //$stm2->close();
-                    //$stm3->close();
-                    //$stm4->close();
-
-                    
-                    header('Location: serviceprovider/index.php');
+                    if ($updateResult) {
+                        // Commit transaction
+                        $conn->commit();
+                        echo "<script>alert('Registered successfully !');</script>";
+                        session_unset();
+                        $_SESSION['userID'] = $userID;
+                        $_SESSION['serviceProviderID'] = $serviceProviderID;
+                        $_SESSION['companyName'] = $name;
+                        header('Location: serviceprovider/index.php');
+                        exit(); //to stop further script execution after redirect
+                    } else {
+                        $conn->rollback();
+                        $error = true;
+                        $registrationerror = "Failed to register service provider";
+                    }
+                } else {
+                    $conn->rollback();
+                    $error = true;
+                    $registrationerror = "Failed to register service provider";
                 }
             } catch (mysqli_sql_exception $e) {
+                $conn->rollback();
                 $error = true;
-                $registrationerror = "Error in registration : ".$e->getMessage(); // Duplicate entry 'spiderman@gmail.com' for key 'Email'
-                //echo $conn->error; // Duplicate entry 'spiderman@gmail.com' for key 'Email'
+                $registrationerror = "Failed to register service provider";
             }             
         } 
     }   
